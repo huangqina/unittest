@@ -29,7 +29,7 @@ for k in ['cr','cs','bc','mr']:
         l = [random.randint(0,100),random.randint(0,100)]
         gui_d[k].append(l)
 end = time.time()
-info2 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':end}
+info2 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'1','create_time':end,'ai_result': 0, 'ai_defects':{'cr':[]},'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':end}
 error_1 = {'barcode':123, 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':end}
 error_2 = {'barcode':str(barcode), 'cell_type':123,'cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':end}
 error_3 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'qwe', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':end}

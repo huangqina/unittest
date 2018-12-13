@@ -13,14 +13,13 @@ def div(a, b):
 
 class testclassone(unittest.TestCase):
     def setUp(self):
-        print(111)
         pass
     #def test_raise_regexp(self):
         #self.assertRaisesRegexp(ZeroDivisionError, "division by zero", div, 2, 0)
     def test_true(self):
         #for k in data_true.keys():
             #run(k) # 执行脚本
-        self.assertEqual(run(data_true['info']), "OK")
+        self.assertEqual(run(data_true['info2']), "OK")
         pass
         #pass       
     def test_false_barcode(self):
@@ -68,7 +67,6 @@ class testclassone(unittest.TestCase):
         self.assertEqual(run(data_false['error_14']), "gui_defects wrong")
         pass
     def tearDown(self):
-        print(333)
         pass
 
 
