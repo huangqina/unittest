@@ -5,15 +5,14 @@ from flask import jsonify
 from flask import request
 from flask_pymongo import PyMongo
 #from flask_script import Manager
-from con import connect
+from con2 import *
 import json
 from flask_apscheduler import APScheduler
 
 
 
-host = 'localhost'
-port = 27017
-c = connect(host, port)
+
+c = connect2()
 #connect('ttt', host='mongodb://database:27017,database2:27017', replicaSet='rs', read_preference=ReadPreference.SECONDARY_PREFERRED)
 
 #c = MongoClient('mongodb://0.0.0.0:27017')
@@ -23,7 +22,7 @@ db = c['ttt']
 app = Flask(__name__)
 def re():
     global c 
-    c = connect(host, port)
+    c = connect2()
     global db
     db = c['ttt']
 #app.config.update(
