@@ -43,24 +43,19 @@ scheduler.start()
 #app.config['MONGO_DBNAME'] = 'ttt'
 #mongo = PyMongo(app)
 #manager = Manager(app)
-db.panel.create_index([("Barcode", 1)])
+if c.is_primary:
+    db.panel.create_index([("Barcode", 1)])
 #mongo.db.el
-db.panel_status.create_index([("time", 1)])
-db.panel_status.create_index([("Panel_ID", 1)]) 
-db.defect.create_index([("time", 1)])
-db.panel_defect.create_index([("Panel_ID", 1)])
-db.panel_defect.create_index([("Defect_ID", 1)])
+    db.panel_status.create_index([("time", 1)])
+    db.panel_status.create_index([("Panel_ID", 1)]) 
+    db.defect.create_index([("time", 1)])
+    db.panel_defect.create_index([("Panel_ID", 1)])
+    db.panel_defect.create_index([("Defect_ID", 1)])
 @app.route('/', methods=['GET'])
 def show():
   #t = i['Defects'][0]['Defect']
   return  '<p>192.168.2.25:5000/add/panel</p><p>192.168.2.25:5000/find/barcode     #post barcode</p><p>192.168.2.25:5000/find/NG      #post time</p><p>192.168.2.25:5000/find/OK       #post time</p><p>192.168.2.25:5000/find/missrate     #post time</p><p>192.168.2.25:5000/find/overkillrate     #post time</p><p>192.168.2.25:5000/find/defect     #post time</p>'
-@app.route('/restart', methods=['POST'])
-def add_user():
-  host = 'localhost'
-  port = 27017
-  c = connect(host, port)
-  #t = i['Defects'][0]['Defect']
-  return 'reconnected to DB'
+
 
 @app.route('/add/panel',methods=['POST'])
 def add():

@@ -18,13 +18,16 @@ def connect2():
                 count = count + 1
             else:
                 if client.is_primary:
+                    print('True')
                     return client
                 else: 
                     line = fd.readline()
                     slave = client
+                    print('False1')
                     break
             if count == 5:
                 line = fd.readline()
                 break
     return slave
+    print('False')
 connect2()

@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from pymongo.errors import ConnectionFailure
+from pymongo.errors import ConnectionFailure, NotMasterError
 #client = MongoClient('localhost')
 #db = client.ttt
 #task = db.i
@@ -14,6 +14,8 @@ def connect( host, port):
                 client.admin.command("ping")
             except ConnectionFailure:
                 count = count + 1
+            except NotMasterError:
+                print('a')    
             else:
                 break
             if count == 5 and port < 27019:
