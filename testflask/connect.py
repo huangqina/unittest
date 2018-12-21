@@ -1,117 +1,68 @@
-# -*- coding: utf-8 -*- 
-from flask import Flask,abort
+from flask import Flask#,abort
 from flask import jsonify
 #from flask import render_template
 from flask import request
 from flask_pymongo import PyMongo
-#from flask_script import Manager
-from con2 import connect2
+from flask_script import Manager
 import json
-from flask_apscheduler import APScheduler
 
-
-
-
-c = connect2()
-#connect('ttt', host='mongodb://database:27017,database2:27017', replicaSet='rs', read_preference=ReadPreference.SECONDARY_PREFERRED)
-
-#c = MongoClient('mongodb://0.0.0.0:27017')
-#mongo = c.ttt
-#conn = MongoReplicaSetClient("192.168.2.25:27017,192.168.2.25:27018", replicaset='rs')
-db = c['ttt']
 app = Flask(__name__)
-def re():
-    global c 
-    c = connect2()
-    global db
-    db = c['ttt']
-#app.config.update(
-    #MONGO_URI='mongodb://127.0.0.1:27017/ttt',
-    #MONGO_USERNAME='bjhee',
-    #MONGO_PASSWORD='111111',
-    #MONGO_REPLICA_SET='rs',
-    #MONGO_READ_PREFERENCE='SECONDARY_PREFERRED',
-    #SCHEDULER_API_ENABLED = True
-#)
-app.config['SCHEDULER_API_ENABLED'] = True
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.add_job(id = '1',func = re, trigger='interval', seconds=5)
-scheduler.start()
-#app.config['MONGO_DBNAME'] = 'ttt'
-#app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017'  #如果部署在本上，其中ip地址可填127.0.0.1
-#app.config['MONGO_DBNAME'] = 'ttt'
-#mongo = PyMongo(app)
-#manager = Manager(app)
-if c.is_primary:
-    db.panel.create_index([("Barcode", 1)])
-#mongo.db.el
-    db.panel_status.create_index([("time", 1)])
-    db.panel_status.create_index([("Panel_ID", 1)]) 
-    db.defect.create_index([("time", 1)])
-    db.panel_defect.create_index([("Panel_ID", 1)])
-    db.panel_defect.create_index([("Defect_ID", 1)])
-@app.route('/', methods=['GET'])
-def show():
-  #t = i['Defects'][0]['Defect']
-  return  '<p>192.168.2.25:5000/add/panel</p><p>192.168.2.25:5000/find/barcode     #post barcode</p><p>192.168.2.25:5000/find/NG      #post time</p><p>192.168.2.25:5000/find/OK       #post time</p><p>192.168.2.25:5000/find/missrate     #post time</p><p>192.168.2.25:5000/find/overkillrate     #post time</p><p>192.168.2.25:5000/find/defect     #post time</p>'
 
+#app.config['MONGO_DBNAME'] = 'ttt'
+app.config['MONGO_URI'] = 'mongodb://127.0.0.1:12345/ttt'  #如果部署在本上，其中ip地址可填127.0.0.1
+
+mongo = PyMongo(app)
+manager = Manager(app)
+mongo.db.panel.create_index([("Barcode", 1)])
+#mongo.db.el
+mongo.db.panel_status.create_index([("time", 1)])
+mongo.db.panel_status.create_index([("Panel_ID", 1)]) 
+mongo.db.defect.create_index([("time", 1)])
+mongo.db.panel_defect.create_index([("Panel_ID", 1)])
+mongo.db.panel_defect.create_index([("Defect_ID", 1)])
+
+@app.route('/test', methods=['POST'])
+def add_user():
+  ID = request.data
+  i = json.loads(ID)
+  #t = i['Defects'][0]['Defect']
+  return jsonify(i)
 
 @app.route('/add/panel',methods=['POST'])
 def add():
-    PANEL = db.panel
-    EL = db.el
-    PANEL_STATUS = db.panel_status 
-    DEFECT = db.defect 
-    PANEL_DEFECT = db.panel_defect 
+    PANEL = mongo.db.panel
+    EL = mongo.db.el
+    PANEL_STATUS = mongo.db.panel_status 
+    DEFECT = mongo.db.defect 
+    PANEL_DEFECT = mongo.db.panel_defect 
     #AI = mongo.db.ai 
     data = request.data
-    info = json.loads(data.decode('utf-8'))
+    info = json.loads(data)
     if not isinstance(info['barcode'],str):
-        
-        #raise TypeError("barcode should be str")
         return 'barcode should be str'
     if info['cell_type'] not in ['mono','poly']:
-        #raise TypeError('cell_type wrong')
         return 'cell_type wrong'
     if info['cell_size'] not in ['half','full']:
-        #raise TypeError('cell_size wrong')
         return 'cell_size wrong'
     if info['cell_amount'] not in [60,72,120,144]:
-        #raise TypeError('cell_amount wrong')
         return 'cell_amount wrong'
     if not isinstance(info['el_no'],str):
-        #raise TypeError('el_no should be str')
         return 'el_no should be str'
-    if not isinstance(info['create_time'],float):
-        return 'create_time should be float'
+    #if not isinstance(info['create_time'],str):
+       # return 'create_time should be str'
     if info['ai_result'] not in [0,1,2]:
-        #raise TypeError('ai_result should be 0 or 1')
-        return 'ai_result should be 0 or 1 or 2'
-    if not isinstance(info['ai_defects'], dict):
-        #raise TypeError('ai_defects should be list')
-        return 'ai_defects should be dict'
+        return 'ai_result should be 0 or 1'
     if info['ai_defects']:
         for k in info['ai_defects'].keys():
             if k not in ['cr','cs','bc','mr']:
-                #raise TypeError('ai_defects wrong')
                 return 'ai_defects wrong'
-    if not isinstance(info['ai_time'],float):
-        return 'ai_time should be float'
     if info['gui_result'] not in [0,1]:
-        #raise TypeError('gui_result should be 0 or 1')
         return 'gui_result should be 0 or 1'
-    if not isinstance(info['gui_defects'], dict):
-        #raise TypeError('gui_defects should be list')
-        return 'gui_defects should be dict'
     if info['gui_defects']:
         for k in info['gui_defects'].keys():
             if k not in ['cr','cs','bc','mr']:
-                #raise TypeError('gui_defects wrong')
                 return 'gui_defects wrong'     
-    if not isinstance(info['gui_time'],float):
-        return 'gui_time should be float'
-    panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
+    panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'EL_no':info['el_no'],'create_time':info['create_time']})
     EL.insert({'EL_no': info['el_no']})
     #panel = PANEL.find_one({'_id': panel_id })
     PANEL_STATUS.insert({'Panel_ID':panel_id,'time':info['create_time'],'result':info['ai_result'],'by':'AI'})
@@ -135,13 +86,13 @@ def add():
     return 'OK'
 @app.route('/find/barcode', methods=['GET','POST'])
 def find(): 
-    #user = db.users 
-    collection = db.panel
+    #user = mongo.db.users 
+    collection = mongo.db.panel
     data = request.data
-    Barcode = json.loads(data.decode('utf-8'))
+    Barcode = json.loads(data)
     Barcode = Barcode["Barcode"]
     #Barcode = request.args['Barcode']
-    I = list(db.panel.find({"Barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
+    I = list(mongo.db.panel.find({"Barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
     if I:
         ID = I[0]['_id']
     else: 
@@ -172,14 +123,14 @@ def find():
 @app.route('/find/OK', methods=['GET','POST']) 
 def findOK(): 
     data = request.data
-    time = json.loads(data.decode('utf-8'))
+    time = json.loads(data)
     #start = float(request.args['start'])
     #end = float(request.args['end'])
     #start = str(time[0])
     #end = str(time[1])
     start = time[0]
     end = time[1]
-    a=list(db.panel_status.aggregate([
+    a=list(mongo.db.panel_status.aggregate([
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {"$group":{
         '_id' : "$result"
@@ -197,7 +148,7 @@ def findOK():
 @app.route('/find/NG', methods=['GET','POST']) 
 def findNG(): 
     data = request.data
-    time = json.loads(data.decode('utf-8'))
+    time = json.loads(data)
     #start = float(request.args['start'])
     #end = float(request.args['end'])
     #start = str(time[0])
@@ -206,7 +157,7 @@ def findNG():
     end = time[1]
     #start = float(request.args['start'])
     #end = float(request.args['end'])
-    a=list(db.panel_status.aggregate([
+    a=list(mongo.db.panel_status.aggregate([
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {
     "$group":{
@@ -225,12 +176,12 @@ def findNG():
 @app.route('/find/missrate', methods=['GET','POST']) 
 def missrate(): 
     data = request.data
-    time = json.loads(data.decode('utf-8'))
+    time = json.loads(data)
    # start = int(request.args['start'])
    # end = int(request.args['end'])
     start = time[0]
     end = time[1]
-    k = list(db.defect.aggregate([
+    k = list(mongo.db.defect.aggregate([
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
@@ -261,12 +212,12 @@ def overkillrate():
     #start = float(request.args['start'])
     #end = float(request.args['end'])
     data = request.data
-    time = json.loads(data.decode('utf-8'))
+    time = json.loads(data)
    # start = int(request.args['start'])
    # end = int(request.args['end'])
     start = time[0]
     end = time[1]
-    k = list(db.defect.aggregate([
+    k = list(mongo.db.defect.aggregate([
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
@@ -290,12 +241,12 @@ def defecttime():
    # start = int(request.args['start'])
    # end = int(request.args['end'])
     data = request.data
-    time = json.loads(data.decode('utf-8'))
+    time = json.loads(data)
    # start = int(request.args['start'])
    # end = int(request.args['end'])
     start = time[0]
     end = time[1]
-    k = list(db.defect.aggregate([
+    k = list(mongo.db.defect.aggregate([
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
@@ -315,4 +266,4 @@ def defecttime():
     return jsonify(k)
 if __name__ == '__main__':
     # app.run(host = '0.0.0.0', por)t = 80, debug = True)
-    app.run(host = '0.0.0.0', port = 5000, debug = True)
+    app.run(host = '0.0.0.0', port = 8080, debug = True)

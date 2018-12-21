@@ -18,13 +18,13 @@ c = connect2()
 #c = MongoClient('mongodb://0.0.0.0:27017')
 #mongo = c.ttt
 #conn = MongoReplicaSetClient("192.168.2.25:27017,192.168.2.25:27018", replicaset='rs')
-db = c['ttt']
+db = c['tttt']
 app = Flask(__name__)
 def re():
     global c 
     c = connect2()
     global db
-    db = c['ttt']
+    db = c['tttt']
 #app.config.update(
     #MONGO_URI='mongodb://127.0.0.1:27017/ttt',
     #MONGO_USERNAME='bjhee',
@@ -45,6 +45,8 @@ scheduler.start()
 #manager = Manager(app)
 if c.is_primary:
     db.panel.create_index([("Barcode", 1)])
+    db.panel.ensure_index([("Barcode",1),("create_time",1)],unique=True)
+    #db.panel.ensure_index([("Barcode", 1)])
 #mongo.db.el
     db.panel_status.create_index([("time", 1)])
     db.panel_status.create_index([("Panel_ID", 1)]) 
@@ -111,7 +113,10 @@ def add():
                 return 'gui_defects wrong'     
     if not isinstance(info['gui_time'],float):
         return 'gui_time should be float'
-    panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
+    try:
+         panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
+    except BaseException as e:
+        return 'barcode already exits'
     EL.insert({'EL_no': info['el_no']})
     #panel = PANEL.find_one({'_id': panel_id })
     PANEL_STATUS.insert({'Panel_ID':panel_id,'time':info['create_time'],'result':info['ai_result'],'by':'AI'})

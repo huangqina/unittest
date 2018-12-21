@@ -4,66 +4,48 @@ from flask import jsonify
 #from flask import render_template
 from flask import request
 from flask_pymongo import PyMongo
-#from flask_script import Manager
-from con2 import connect2
+from flask_script import Manager
 import json
-from flask_apscheduler import APScheduler
 
-
-
-
-c = connect2()
-#connect('ttt', host='mongodb://database:27017,database2:27017', replicaSet='rs', read_preference=ReadPreference.SECONDARY_PREFERRED)
-
-#c = MongoClient('mongodb://0.0.0.0:27017')
-#mongo = c.ttt
-#conn = MongoReplicaSetClient("192.168.2.25:27017,192.168.2.25:27018", replicaset='rs')
-db = c['ttt']
 app = Flask(__name__)
-def re():
-    global c 
-    c = connect2()
-    global db
-    db = c['ttt']
-#app.config.update(
-    #MONGO_URI='mongodb://127.0.0.1:27017/ttt',
+app.config.update(
+    MONGO_URI='mongodb://192.168.2.25:27017/ttt',
     #MONGO_USERNAME='bjhee',
     #MONGO_PASSWORD='111111',
-    #MONGO_REPLICA_SET='rs',
-    #MONGO_READ_PREFERENCE='SECONDARY_PREFERRED',
-    #SCHEDULER_API_ENABLED = True
-#)
-app.config['SCHEDULER_API_ENABLED'] = True
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.add_job(id = '1',func = re, trigger='interval', seconds=5)
-scheduler.start()
+    MONGO_REPLICA_SET='rs',
+    #MONGO_READ_PREFERENCE='SECONDARY_PREFERRED'
+
+)
 #app.config['MONGO_DBNAME'] = 'ttt'
 #app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017'  #如果部署在本上，其中ip地址可填127.0.0.1
 #app.config['MONGO_DBNAME'] = 'ttt'
-#mongo = PyMongo(app)
+mongo = PyMongo(app)
 #manager = Manager(app)
-if c.is_primary:
-    db.panel.create_index([("Barcode", 1)])
+mongo.db.panel.create_index([("Barcode", 1)])
 #mongo.db.el
-    db.panel_status.create_index([("time", 1)])
-    db.panel_status.create_index([("Panel_ID", 1)]) 
-    db.defect.create_index([("time", 1)])
-    db.panel_defect.create_index([("Panel_ID", 1)])
-    db.panel_defect.create_index([("Defect_ID", 1)])
+mongo.db.panel_status.create_index([("time", 1)])
+mongo.db.panel_status.create_index([("Panel_ID", 1)]) 
+mongo.db.defect.create_index([("time", 1)])
+mongo.db.panel_defect.create_index([("Panel_ID", 1)])
+mongo.db.panel_defect.create_index([("Defect_ID", 1)])
 @app.route('/', methods=['GET'])
 def show():
   #t = i['Defects'][0]['Defect']
   return  '<p>192.168.2.25:5000/add/panel</p><p>192.168.2.25:5000/find/barcode     #post barcode</p><p>192.168.2.25:5000/find/NG      #post time</p><p>192.168.2.25:5000/find/OK       #post time</p><p>192.168.2.25:5000/find/missrate     #post time</p><p>192.168.2.25:5000/find/overkillrate     #post time</p><p>192.168.2.25:5000/find/defect     #post time</p>'
-
+@app.route('/test', methods=['POST'])
+def add_user():
+  ID = request.data
+  i = json.loads(ID.decode('utf-8'))
+  #t = i['Defects'][0]['Defect']
+  return jsonify(i)
 
 @app.route('/add/panel',methods=['POST'])
 def add():
-    PANEL = db.panel
-    EL = db.el
-    PANEL_STATUS = db.panel_status 
-    DEFECT = db.defect 
-    PANEL_DEFECT = db.panel_defect 
+    PANEL = mongo.db.panel
+    EL = mongo.db.el
+    PANEL_STATUS = mongo.db.panel_status 
+    DEFECT = mongo.db.defect 
+    PANEL_DEFECT = mongo.db.panel_defect 
     #AI = mongo.db.ai 
     data = request.data
     info = json.loads(data.decode('utf-8'))
@@ -135,13 +117,13 @@ def add():
     return 'OK'
 @app.route('/find/barcode', methods=['GET','POST'])
 def find(): 
-    #user = db.users 
-    collection = db.panel
+    #user = mongo.db.users 
+    collection = mongo.db.panel
     data = request.data
     Barcode = json.loads(data.decode('utf-8'))
     Barcode = Barcode["Barcode"]
     #Barcode = request.args['Barcode']
-    I = list(db.panel.find({"Barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
+    I = list(mongo.db.panel.find({"Barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
     if I:
         ID = I[0]['_id']
     else: 
@@ -179,7 +161,7 @@ def findOK():
     #end = str(time[1])
     start = time[0]
     end = time[1]
-    a=list(db.panel_status.aggregate([
+    a=list(mongo.db.panel_status.aggregate([
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {"$group":{
         '_id' : "$result"
@@ -206,7 +188,7 @@ def findNG():
     end = time[1]
     #start = float(request.args['start'])
     #end = float(request.args['end'])
-    a=list(db.panel_status.aggregate([
+    a=list(mongo.db.panel_status.aggregate([
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {
     "$group":{
@@ -230,7 +212,7 @@ def missrate():
    # end = int(request.args['end'])
     start = time[0]
     end = time[1]
-    k = list(db.defect.aggregate([
+    k = list(mongo.db.defect.aggregate([
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
@@ -266,7 +248,7 @@ def overkillrate():
    # end = int(request.args['end'])
     start = time[0]
     end = time[1]
-    k = list(db.defect.aggregate([
+    k = list(mongo.db.defect.aggregate([
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
@@ -295,7 +277,7 @@ def defecttime():
    # end = int(request.args['end'])
     start = time[0]
     end = time[1]
-    k = list(db.defect.aggregate([
+    k = list(mongo.db.defect.aggregate([
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
