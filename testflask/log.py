@@ -9,10 +9,45 @@ from con2 import connect2
 import json
 from flask_apscheduler import APScheduler
 import logging
+import sys
 
-
-logging.basicConfig(filename="./log",level = logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logging.basicConfig(filename="./log",level = logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
+ 
+# 文件日志
+file_handler = logging.FileHandler("test.log")
+file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式
+ 
+# 控制台日志
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.formatter = formatter  # 也可以直接给formatter赋值
+ 
+# 为logger添加的日志处理器
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
+ 
+# 指定日志的最低输出级别，默认为WARN级别
+logger.setLevel(logging.INFO)
+ 
+# 输出不同级别的log
+logger.debug('this is debug info')
+#logger.info('this is information')
+#logger.warn('this is warning message')
+#logger.error('this is error message')
+#logger.fatal('this is fatal message, it is same as logger.critical')
+#logger.critical('this is critical message')
+ 
+# 2016-10-08 21:59:19,493 INFO    : this is information
+# 2016-10-08 21:59:19,493 WARNING : this is warning message
+# 2016-10-08 21:59:19,493 ERROR   : this is error message
+# 2016-10-08 21:59:19,493 CRITICAL: this is fatal message, it is same as logger.critical
+# 2016-10-08 21:59:19,493 CRITICAL: this is critical message
+ 
+# 移除一些日志处理器
+#logger.removeHandler(file_handler)
+
 c = connect2()
 #connect('ttt', host='mongodb://database:27017,database2:27017', replicaSet='rs', read_preference=ReadPreference.SECONDARY_PREFERRED)
 
@@ -71,25 +106,31 @@ def add():
     data = request.data
     info = json.loads(data.decode('utf-8'))
     if not isinstance(info['barcode'],str):
-        
+        logger.error('barcode should be str')
         #raise TypeError("barcode should be str")
         return 'barcode should be str'
     if info['cell_type'] not in ['mono','poly']:
         #raise TypeError('cell_type wrong')
+        logger.error('cell_type wrong')
         return 'cell_type wrong'
     if info['cell_size'] not in ['half','full']:
         #raise TypeError('cell_size wrong')
+        logger.error('cell_size wrong')
         return 'cell_size wrong'
     if info['cell_amount'] not in [60,72,120,144]:
         #raise TypeError('cell_amount wrong')
+        logger.error('cell_amount wrong')
         return 'cell_amount wrong'
     if not isinstance(info['el_no'],str):
         #raise TypeError('el_no should be str')
+        logger.error('el_no should be str')
         return 'el_no should be str'
     if not isinstance(info['create_time'],float):
+        logger.error('create_time should be float')
         return 'create_time should be float'
     if info['ai_result'] not in [0,1,2]:
         #raise TypeError('ai_result should be 0 or 1')
+        logger.error('ai_result should be 0 or 1 or 2')
         return 'ai_result should be 0 or 1 or 2'
     if not isinstance(info['ai_defects'], dict):
         #raise TypeError('ai_defects should be list')
@@ -98,11 +139,14 @@ def add():
         for k in info['ai_defects'].keys():
             if k not in ['cr','cs','bc','mr']:
                 #raise TypeError('ai_defects wrong')
+                logger.error('ai_defects wrong')
                 return 'ai_defects wrong'
     if not isinstance(info['ai_time'],float):
+        logger.error('ai_time should be float')
         return 'ai_time should be float'
     if info['gui_result'] not in [0,1]:
         #raise TypeError('gui_result should be 0 or 1')
+        logger.error('gui_result should be 0 or 1')
         return 'gui_result should be 0 or 1'
     if not isinstance(info['gui_defects'], dict):
         #raise TypeError('gui_defects should be list')
@@ -111,12 +155,15 @@ def add():
         for k in info['gui_defects'].keys():
             if k not in ['cr','cs','bc','mr']:
                 #raise TypeError('gui_defects wrong')
+                logger.error('gui_defects wrong')
                 return 'gui_defects wrong'     
     if not isinstance(info['gui_time'],float):
-        return 'gui_time should be float'
+        logger.error('gui_defects wrong')
+        return 'gui_defects wrong'
     try:
         panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
     except BaseException as e:
+        logger.error('barcode already exits')
         return 'barcode already exits'
     EL.insert({'EL_no': info['el_no']})
     #panel = PANEL.find_one({'_id': panel_id })

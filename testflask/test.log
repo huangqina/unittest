@@ -1,0 +1,20 @@
+2018-12-25 17:01:25,433 INFO    : this is information
+2018-12-25 17:01:25,436 WARNING : this is warning message
+2018-12-25 17:01:25,436 ERROR   : this is error message
+2018-12-25 17:01:25,437 CRITICAL: this is fatal message, it is same as logger.critical
+2018-12-25 17:01:25,438 CRITICAL: this is critical message
+2018-12-25 17:01:26,153 INFO    : this is information
+2018-12-25 17:01:26,153 WARNING : this is warning message
+2018-12-25 17:01:26,153 ERROR   : this is error message
+2018-12-25 17:01:26,153 CRITICAL: this is fatal message, it is same as logger.critical
+2018-12-25 17:01:26,153 CRITICAL: this is critical message
+2018-12-25 17:03:36,111 INFO    : this is information
+2018-12-25 17:03:36,112 WARNING : this is warning message
+2018-12-25 17:03:36,112 ERROR   : this is error message
+2018-12-25 17:03:36,112 CRITICAL: this is fatal message, it is same as logger.critical
+2018-12-25 17:03:36,112 CRITICAL: this is critical message
+2018-12-25 17:03:49,061 INFO    : add panel
+2018-12-25 17:03:49,191 INFO    : add panel
+2018-12-25 17:03:49,603 INFO    : add panel
+2018-12-25 17:03:49,626 INFO    : add panel
+2018-12-25 17:03:49,849 INFO    : add panel
