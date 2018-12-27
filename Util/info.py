@@ -41,10 +41,12 @@ error_8 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_
 error_9 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':'end','gui_result':0,'gui_defects':gui_d,'gui_time':end}
 error_10 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':4,'gui_defects':gui_d,'gui_time':end}
 error_11 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':0,'gui_time':end}
+#error_12 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':'end'}
 error_12 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':'end'}
-error_13 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':{'ct':[0]},'ai_time':end,'gui_result':0,'gui_defects':{'ct':[0]},'gui_time':'end'}
 
-error_14 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':{'ct':[0]},'gui_time':'end'}
+error_13 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':{'ct':[0]},'ai_time':end,'gui_result':0,'gui_defects':gui_d,'gui_time':end}
+
+error_14 = {'barcode':str(barcode), 'cell_type':'mono','cell_size':'half', 'cell_amount':60,'el_no':'131','create_time':end,'ai_result': 0, 'ai_defects':ai_d,'ai_time':end,'gui_result':0,'gui_defects':{'ct':[0]},'gui_time':end}
 
 data_true = {
         'info' : info,

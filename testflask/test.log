@@ -697,3 +697,429 @@
 2018-12-26 11:05:47,990 ERROR   : json error'int' object is not subscriptable
 2018-12-26 11:05:47,991 ERROR   : json error'int' object is not subscriptable
 2018-12-26 11:05:47,991 ERROR   : json error'int' object is not subscriptable
+2018-12-26 11:10:56,169 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,174 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,188 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,189 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,190 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,204 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,204 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,223 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,233 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,239 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,264 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,265 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,273 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,293 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,308 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,314 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,315 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,317 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,317 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,370 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,371 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,373 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,376 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,382 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,410 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,441 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,443 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,444 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,448 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,450 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,484 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,493 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,493 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,501 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,505 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,509 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,536 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,556 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,557 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,559 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,573 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,591 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,596 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,596 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,599 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,628 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,628 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,635 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,648 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,653 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,659 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,665 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,690 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,691 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,706 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,706 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,710 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,731 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,742 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,757 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,764 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,766 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,767 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,773 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,789 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,799 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,814 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,819 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,821 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,822 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,848 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,873 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,874 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,889 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,894 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,903 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,903 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,913 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,913 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,919 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,938 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,958 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,963 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,978 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,980 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,985 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,986 ERROR   : json error  'cell_size'
+2018-12-26 11:10:56,998 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,033 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,033 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,035 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,037 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,038 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,073 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,073 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,080 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,087 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,093 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,113 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,114 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,124 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,148 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,158 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,158 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,164 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,165 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,205 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,210 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,212 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,213 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,215 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,238 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,261 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,267 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,267 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,276 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,280 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,293 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,294 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,299 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,317 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,336 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,344 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,360 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,365 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,372 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,376 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,376 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,408 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,415 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,421 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,430 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,442 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,450 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,471 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,477 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,482 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,497 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,507 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,511 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,512 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,513 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,554 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,554 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,556 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,559 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,561 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,579 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,603 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,605 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,612 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,613 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,614 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,639 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,644 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,644 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,668 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,681 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,682 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,683 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,684 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,699 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,718 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,721 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,729 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,732 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,738 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,756 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,760 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,768 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,770 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,794 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,816 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,817 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,818 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,820 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,825 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,849 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,849 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,850 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,850 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,879 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,897 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,897 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,904 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,904 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,930 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,946 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,949 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,949 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,965 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,988 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,989 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,989 ERROR   : json error  'cell_size'
+2018-12-26 11:10:57,994 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,015 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,019 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,022 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,039 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,040 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,041 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,065 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,065 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,067 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,072 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,106 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,118 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,118 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,119 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,120 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,155 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,161 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,162 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,163 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,165 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,196 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,196 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,203 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,221 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,222 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,240 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,248 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,269 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,270 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,270 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,270 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,277 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,309 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,309 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,318 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,331 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,347 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,349 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,350 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,356 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,386 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,387 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,389 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,391 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,410 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,420 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,421 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,437 ERROR   : json error  'cell_size'
+2018-12-26 11:10:58,442 ERROR   : json error  'cell_size'
+2018-12-26 11:11:45,836 INFO    : add panel
+2018-12-26 11:11:46,304 INFO    : add panel
+2018-12-26 11:11:46,390 INFO    : add panel
+2018-12-26 11:11:46,394 INFO    : add panel
+2018-12-26 11:11:46,601 INFO    : add panel
+2018-12-26 11:11:47,910 INFO    : add panel
+2018-12-26 11:11:48,039 INFO    : add panel
+2018-12-26 11:11:48,285 INFO    : add panel
+2018-12-26 11:11:48,651 INFO    : add panel
+2018-12-26 11:11:48,820 INFO    : add panel
+2018-12-26 11:59:05,493 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 11:59:05,501 ERROR   : ai_time should be float
+2018-12-26 11:59:05,509 ERROR   : ai_defects wrong
+2018-12-26 11:59:05,518 ERROR   : barcode should be str
+2018-12-26 11:59:05,528 ERROR   : cell_amount wrong
+2018-12-26 11:59:05,536 ERROR   : cell_size wrong
+2018-12-26 11:59:05,547 ERROR   : cell_type wrong
+2018-12-26 11:59:05,556 ERROR   : create_time should be float
+2018-12-26 11:59:05,565 ERROR   : el_no should be str
+2018-12-26 11:59:05,581 ERROR   : gui_result should be 0 or 1
+2018-12-26 11:59:05,588 ERROR   : gui_defects wrong
+2018-12-26 11:59:05,595 ERROR   : gui_defects wrong
+2018-12-26 11:59:22,951 INFO    : add panel
+2018-12-26 11:59:37,291 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 11:59:37,305 ERROR   : ai_time should be float
+2018-12-26 11:59:37,314 ERROR   : ai_defects wrong
+2018-12-26 11:59:37,322 ERROR   : barcode should be str
+2018-12-26 11:59:37,328 ERROR   : cell_amount wrong
+2018-12-26 11:59:37,340 ERROR   : cell_size wrong
+2018-12-26 11:59:37,351 ERROR   : cell_type wrong
+2018-12-26 11:59:37,361 ERROR   : create_time should be float
+2018-12-26 11:59:37,377 ERROR   : el_no should be str
+2018-12-26 11:59:37,396 ERROR   : gui_result should be 0 or 1
+2018-12-26 11:59:37,404 ERROR   : gui_defects wrong
+2018-12-26 11:59:37,412 ERROR   : gui_defects wrong
+2018-12-26 11:59:42,479 INFO    : add panel
+2018-12-26 12:03:37,633 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:03:37,641 ERROR   : ai_time should be float
+2018-12-26 12:03:37,648 ERROR   : ai_defects wrong
+2018-12-26 12:03:37,655 ERROR   : barcode should be str
+2018-12-26 12:03:37,662 ERROR   : cell_amount wrong
+2018-12-26 12:03:37,668 ERROR   : cell_size wrong
+2018-12-26 12:03:37,675 ERROR   : cell_type wrong
+2018-12-26 12:03:37,684 ERROR   : create_time should be float
+2018-12-26 12:03:37,694 ERROR   : el_no should be str
+2018-12-26 12:03:37,713 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:03:37,723 ERROR   : gui_defects wrong
+2018-12-26 12:03:37,730 ERROR   : gui_defects wrong
+2018-12-26 12:03:41,742 INFO    : add panel
+2018-12-26 12:03:56,636 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:03:56,640 ERROR   : ai_time should be float
+2018-12-26 12:03:56,643 ERROR   : ai_defects wrong
+2018-12-26 12:03:56,646 ERROR   : barcode should be str
+2018-12-26 12:03:56,650 ERROR   : cell_amount wrong
+2018-12-26 12:03:56,653 ERROR   : cell_size wrong
+2018-12-26 12:03:56,656 ERROR   : cell_type wrong
+2018-12-26 12:03:56,659 ERROR   : create_time should be float
+2018-12-26 12:03:56,663 ERROR   : el_no should be str
+2018-12-26 12:03:56,669 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:03:56,672 ERROR   : gui_defects wrong
+2018-12-26 12:03:56,676 ERROR   : gui_defects wrong
+2018-12-26 12:03:58,407 INFO    : add panel
+2018-12-26 12:04:00,122 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:04:00,125 ERROR   : ai_time should be float
+2018-12-26 12:04:00,128 ERROR   : ai_defects wrong
+2018-12-26 12:04:00,131 ERROR   : barcode should be str
+2018-12-26 12:04:00,135 ERROR   : cell_amount wrong
+2018-12-26 12:04:00,138 ERROR   : cell_size wrong
+2018-12-26 12:04:00,141 ERROR   : cell_type wrong
+2018-12-26 12:04:00,143 ERROR   : create_time should be float
+2018-12-26 12:04:00,146 ERROR   : el_no should be str
+2018-12-26 12:04:00,152 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:04:00,156 ERROR   : gui_defects wrong
+2018-12-26 12:04:00,160 ERROR   : gui_defects wrong
+2018-12-26 12:04:02,467 INFO    : add panel
+2018-12-26 12:06:17,408 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:06:17,411 ERROR   : ai_time should be float
+2018-12-26 12:06:17,413 ERROR   : ai_defects wrong
+2018-12-26 12:06:17,415 ERROR   : barcode should be str
+2018-12-26 12:06:17,418 ERROR   : cell_amount wrong
+2018-12-26 12:06:17,421 ERROR   : cell_size wrong
+2018-12-26 12:06:17,425 ERROR   : cell_type wrong
+2018-12-26 12:06:17,428 ERROR   : create_time should be float
+2018-12-26 12:06:17,431 ERROR   : el_no should be str
+2018-12-26 12:06:17,438 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:06:17,442 ERROR   : gui_defects wrong
+2018-12-26 12:06:17,445 ERROR   : gui_defects wrong
+2018-12-26 12:06:18,861 INFO    : add panel
+2018-12-26 12:07:23,661 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:07:23,664 ERROR   : ai_time should be float
+2018-12-26 12:07:23,666 ERROR   : ai_defects wrong
+2018-12-26 12:07:23,670 ERROR   : barcode should be str
+2018-12-26 12:07:23,674 ERROR   : cell_amount wrong
+2018-12-26 12:07:23,676 ERROR   : cell_size wrong
+2018-12-26 12:07:23,679 ERROR   : cell_type wrong
+2018-12-26 12:07:23,684 ERROR   : create_time should be float
+2018-12-26 12:07:23,688 ERROR   : el_no should be str
+2018-12-26 12:07:23,694 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:07:23,698 ERROR   : gui_defects wrong
+2018-12-26 12:07:23,702 ERROR   : gui_defects wrong
+2018-12-26 12:07:24,702 INFO    : add panel
+2018-12-26 12:07:48,727 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:07:48,730 ERROR   : ai_time should be float
+2018-12-26 12:07:48,732 ERROR   : ai_defects wrong
+2018-12-26 12:07:48,735 ERROR   : barcode should be str
+2018-12-26 12:07:48,741 ERROR   : cell_amount wrong
+2018-12-26 12:07:48,744 ERROR   : cell_size wrong
+2018-12-26 12:07:48,748 ERROR   : cell_type wrong
+2018-12-26 12:07:48,752 ERROR   : create_time should be float
+2018-12-26 12:07:48,755 ERROR   : el_no should be str
+2018-12-26 12:07:48,761 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:07:48,763 ERROR   : ai_defects wrong
+2018-12-26 12:07:48,768 ERROR   : gui_defects wrong
+2018-12-26 12:07:49,550 INFO    : add panel
+2018-12-26 12:08:02,547 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:08:02,550 ERROR   : ai_time should be float
+2018-12-26 12:08:02,553 ERROR   : ai_defects wrong
+2018-12-26 12:08:02,555 ERROR   : barcode should be str
+2018-12-26 12:08:02,558 ERROR   : cell_amount wrong
+2018-12-26 12:08:02,560 ERROR   : cell_size wrong
+2018-12-26 12:08:02,564 ERROR   : cell_type wrong
+2018-12-26 12:08:02,566 ERROR   : create_time should be float
+2018-12-26 12:08:02,569 ERROR   : el_no should be str
+2018-12-26 12:08:02,575 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:08:04,893 INFO    : add panel
+2018-12-26 12:08:04,901 ERROR   : gui_defects wrong
+2018-12-26 12:08:04,912 ERROR   : barcode already exits
+2018-12-26 12:08:44,019 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:08:44,022 ERROR   : ai_time should be float
+2018-12-26 12:08:44,025 ERROR   : ai_defects wrong
+2018-12-26 12:08:44,028 ERROR   : barcode should be str
+2018-12-26 12:08:44,032 ERROR   : cell_amount wrong
+2018-12-26 12:08:44,035 ERROR   : cell_size wrong
+2018-12-26 12:08:44,038 ERROR   : cell_type wrong
+2018-12-26 12:08:44,042 ERROR   : create_time should be float
+2018-12-26 12:08:44,046 ERROR   : el_no should be str
+2018-12-26 12:08:44,054 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:08:44,057 ERROR   : gui_defects wrong
+2018-12-26 12:08:44,061 ERROR   : gui_defects wrong
+2018-12-26 12:08:45,247 INFO    : add panel
+2018-12-26 12:16:57,499 ERROR   : ai_result should be 0 or 1 or 2
+2018-12-26 12:16:57,502 ERROR   : ai_time should be float
+2018-12-26 12:16:57,505 ERROR   : ai_defects wrong
+2018-12-26 12:16:57,507 ERROR   : barcode should be str
+2018-12-26 12:16:57,511 ERROR   : cell_amount wrong
+2018-12-26 12:16:57,515 ERROR   : cell_size wrong
+2018-12-26 12:16:57,517 ERROR   : cell_type wrong
+2018-12-26 12:16:57,521 ERROR   : create_time should be float
+2018-12-26 12:16:57,523 ERROR   : el_no should be str
+2018-12-26 12:16:57,531 ERROR   : gui_result should be 0 or 1
+2018-12-26 12:16:57,534 ERROR   : gui_time should be float
+2018-12-26 12:16:57,538 ERROR   : gui_defects wrong
+2018-12-26 12:16:58,333 INFO    : add panel
+2018-12-26 14:16:33,876 INFO    : add panel
+2018-12-26 14:16:33,892 INFO    : add panel
+2018-12-26 14:16:34,102 INFO    : add panel
+2018-12-26 14:16:34,489 INFO    : add panel
+2018-12-26 14:16:35,751 INFO    : add panel
+2018-12-26 14:16:43,003 INFO    : add panel
+2018-12-26 14:16:43,426 INFO    : add panel
+2018-12-26 14:16:43,852 INFO    : add panel
+2018-12-26 14:16:43,957 INFO    : add panel
+2018-12-26 14:17:12,972 ERROR   : json file error  'barcode'
+2018-12-26 14:17:28,658 INFO    : add panel
+2018-12-26 14:17:32,877 ERROR   : barcode already exits
+2018-12-26 14:29:34,276 ERROR   : json file error  'int' object is not subscriptable
+2018-12-27 12:13:14,158 ERROR   : barcode already exits
+2018-12-27 12:13:21,809 ERROR   : barcode already exits
+2018-12-27 12:13:23,496 ERROR   : barcode already exits
+2018-12-27 12:13:28,338 INFO    : add panel
+2018-12-27 12:13:36,145 ERROR   : barcode already exits
+2018-12-27 12:13:37,155 ERROR   : barcode already exits
+2018-12-27 12:13:45,282 INFO    : add panel
+2018-12-27 12:13:46,451 ERROR   : barcode already exits
+2018-12-27 12:13:47,440 ERROR   : barcode already exits
+2018-12-27 12:14:00,768 INFO    : add panel
+2018-12-27 12:14:31,155 ERROR   : barcode already exits
+2018-12-27 12:15:38,286 ERROR   : barcode already exits
+2018-12-27 12:16:08,102 INFO    : add panel
+2018-12-27 12:16:32,855 ERROR   : barcode already exits
+2018-12-27 12:16:38,114 INFO    : add panel
+2018-12-27 12:16:54,344 INFO    : add panel
