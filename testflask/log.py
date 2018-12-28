@@ -80,6 +80,7 @@ scheduler.start()
 #mongo = PyMongo(app)
 #manager = Manager(app)
 if c.is_primary:
+    db.user.ensure_index([("name",1)],unique=True)
     db.panel.create_index([("Barcode", 1)])
     db.panel.ensure_index([("Barcode",1),("create_time",1)],unique=True)
     #db.panel.ensure_index([("Barcode", 1)])
@@ -93,7 +94,67 @@ if c.is_primary:
 def show():
   #t = i['Defects'][0]['Defect']
   return  '<p>ip:5000/add/panel</p><p>ip:5000/find/barcode     #post barcode</p><p>ip:5000/find/NG      #post time</p><p>ip:5000/find/OK       #post time</p><p>ip:5000/find/missrate     #post time</p><p>ip:5000/find/overkillrate     #post time</p><p>ip:5000/find/defect     #post time</p>'
-
+@app.route('/test',methods=['POST'])
+def test():
+    user = db.user
+    a = user.find(projection={"_id":0})
+    b = list(a)
+    b={'result':b}
+    b = json.dumps(b)
+    return b
+@app.route('/add/user',methods=['POST'])
+def add_user():
+    user = db.user
+    log = db.user_log
+    data = request.data
+    info = json.loads(data.decode('utf-8'))
+    try:
+        user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":0})
+        log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"add_user'{'%s'}'"%(info["user_name"])})
+        return '200'
+    except BaseException as e:
+        return str(e),400
+@app.route('/del/user',methods=['POST'])
+def del_user():
+    user = db.user
+    log = db.user_log
+    data = request.data
+    info = json.loads(data.decode('utf-8'))
+    try:
+        AD = user.find_one({"name" : info["admin_name"],"pw" : info["admin_pw"],"activate" : 1})
+        if AD:
+            I = user.find_one({"name" : info["user_name"],"pw" : info["user_pw"]})
+            I["activate"] = 0
+            I = user.update({"name" : info["user_name"],"pw" : info["user_pw"]},I)
+            log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"DEL'{'%s'}'"%(info["user_name"])})
+            return '200'
+    except BaseException as e:
+        return str(e),400
+@app.route('/user/login',methods=['POST'])
+def login():
+    user = db.user
+    log = db.user_log
+    data = request.data
+    info = json.loads(data.decode('utf-8'))
+    I = user.find_one({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1})
+    
+    if  I:
+        log.insert({'user_id' : I, 'time': info['time'],'action':"login'{'%s'}'"%(info["user_name"])})
+        return str(int(I["type"])),200
+    else:
+        return 'error',400
+@app.route('/user/logout',methods=['POST'])
+def logout():
+    user = db.user
+    log = db.user_log
+    data = request.data
+    info = json.loads(data.decode('utf-8'))
+    I = user.find_one({"name" : info["user_name"],"activate" : 1})
+    if  I:
+        log.insert({'user_id' : I, 'time': info['time'],'action':"logout'{'%s'}'"%(info["user_name"])})
+        return '200'
+    else:
+        return '400'
 
 @app.route('/add/panel',methods=['POST'])
 def add():
@@ -164,7 +225,7 @@ def add():
     except BaseException as e:
         logger.error('json file error  '+str(e))
        
-        return str('json file error  '+str(e))
+        return str('json file error  '+str(e)),400
     try:
         panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
     except BaseException as e:
@@ -374,5 +435,6 @@ def defecttime():
     '''
     return jsonify(k)
 if __name__ == '__main__':
+
     # app.run(host = '0.0.0.0', por)t = 80, debug = True)
     app.run(host = '0.0.0.0', port = 5000, debug = True)
