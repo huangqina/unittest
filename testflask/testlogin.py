@@ -7,5 +7,6 @@ a = {'admin_name':'root','user_name':'huang','user_pw':"123456",'admin_pw':"1234
 b = json.dumps(a)
 
 r = requests.post('http://192.168.2.10:5000/test')
-
-print(r.text)
+a = eval(r.text)
+for i in a:
+    print(i)

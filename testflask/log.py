@@ -97,11 +97,9 @@ def show():
 @app.route('/test',methods=['POST'])
 def test():
     user = db.user
-    a = user.find(projection={"_id":0})
+    a = user.find({"type":0,"activate":1},projection={"_id":0})
     b = list(a)
-    b={'result':b}
-    b = json.dumps(b)
-    return b
+    return jsonify(b)
 @app.route('/add/user',methods=['POST'])
 def add_user():
     user = db.user
