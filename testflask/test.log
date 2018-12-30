@@ -1127,3 +1127,11 @@
 2018-12-27 13:10:55,475 ERROR   : json file error  'int' object is not subscriptable
 2018-12-27 13:11:03,714 ERROR   : json file error  'int' object is not subscriptable
 2018-12-27 13:11:17,632 ERROR   : gui_time should be float
+2018-12-30 16:32:11,318 ERROR   : barcode already exits
+2018-12-30 16:32:32,748 INFO    : add panel
+2018-12-30 16:33:06,940 INFO    : add panel
+2018-12-30 16:33:38,314 INFO    : add panel
+2018-12-30 16:36:10,576 ERROR   : barcode already exits
+2018-12-30 16:36:18,498 INFO    : add panel
+2018-12-30 16:41:51,390 INFO    : add panel
+2018-12-30 16:42:24,356 INFO    : add panel

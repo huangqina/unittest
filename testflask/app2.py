@@ -93,7 +93,7 @@ if c.is_primary:
 @app.route('/', methods=['GET'])
 def show():
   #t = i['Defects'][0]['Defect']
-  return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "el_no": str, "display_mode": int, "module_no": int,"thresholds": dict,"cell_amount": int, "create_time": float, "ai_result": int, "ai_defects": dict, "ai_time": float, "gui_result": int, "gui_defects": dict, "gui_time": float}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
+  return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_amount": int, "el_no": str, "display_mode": int, "module_no": int, "thresholds": dict, "create_time": float, "ai_result": int, "ai_defects": dict, "gui_result": int, "gui_defects": dict}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
 @app.route('/test',methods=['POST'])
 def test():
     user = db.user
@@ -157,6 +157,9 @@ def logout():
 
 @app.route('/panel/add',methods=['POST'])
 def add():
+    display_mode = db.display_mode
+    module_no = db.module_no
+    thresholds = db.thresholds
     PANEL = db.panel
     EL = db.el
     PANEL_STATUS = db.panel_status 
@@ -174,10 +177,10 @@ def add():
             #   raise TypeError('cell_type wrong')
             logger.error('cell_type wrong')
             return 'cell_type wrong',400
-        if info['cell_size'] not in ['half','full']:
+        #if info['cell_size'] not in ['half','full']:
             #raise TypeError('cell_size wrong')
-            logger.error('cell_size wrong')
-            return 'cell_size wrong',400
+            #logger.error('cell_size wrong')
+            #return 'cell_size wrong',400
         if info['cell_amount'] not in [60,72,120,144]:
             #raise TypeError('cell_amount wrong')
             logger.error('cell_amount wrong')
@@ -189,6 +192,10 @@ def add():
         if not isinstance(info['create_time'],float):
             logger.error('create_time should be float')
             return 'create_time should be float',400
+        if info['display_mode'] not in [0,1,2]:
+            #raise TypeError('ai_result should be 0 or 1')
+            logger.error('display_mode should be 0 or 1 or 2')
+            return 'ai_result should be 0 or 1 or 2',400
         if info['ai_result'] not in [0,1,2]:
             #raise TypeError('ai_result should be 0 or 1')
             logger.error('ai_result should be 0 or 1 or 2')
@@ -202,10 +209,10 @@ def add():
                     #raise TypeError('ai_defects wrong')
                     logger.error('ai_defects wrong')
                     return 'ai_defects wrong',400
-        if not isinstance(info['ai_time'],float):
-            logger.error('ai_time should be float')
-            return 'ai_time should be float',400
-        if info['gui_result'] not in [0,1]:
+        #if not isinstance(info['ai_time'],float):
+            #logger.error('ai_time should be float')
+            #return 'ai_time should be float',400
+        if info['gui_result'] not in [0,1,2]:
             #raise TypeError('gui_result should be 0 or 1')
             logger.error('gui_result should be 0 or 1')
             return 'gui_result should be 0 or 1',400
@@ -218,18 +225,28 @@ def add():
                     #raise TypeError('gui_defects wrong')
                     logger.error('gui_defects wrong')
                     return 'gui_defects wrong',400     
-        if not isinstance(info['gui_time'],float):
-            logger.error('gui_time should be float')
-            return 'gui_time should be float',400
+        #if not isinstance(info['gui_time'],float):
+            #logger.error('gui_time should be float')
+            #return 'gui_time should be float',400
     except BaseException as e:
         logger.error('json file error  '+str(e))
        
         return str('json file error  '+str(e)),400
     try:
-        panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_size': info['cell_size'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
+        panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_amount': info['cell_amount'],'EL_no':info['el_no'],'create_time':info['create_time']})
     except BaseException as e:
         logger.error('barcode already exits')
         return 'barcode already exits',400
+    display_mode.insert({'display_mode': info['display_mode']})
+    module_no.insert({'module_no': info['module_no']})
+    dic = {}
+    try:
+        if info['thresholds']:
+            for k in info['thresholds'].keys():
+                dic[k] = info['thresholds'][k]
+            thresholds.insert(dic)
+    except BaseException:
+        pass
     EL.insert({'EL_no': info['el_no']})
     #panel = PANEL.find_one({'_id': panel_id })
     PANEL_STATUS.insert({'Panel_ID':panel_id,'time':info['create_time'],'result':info['ai_result'],'by':'AI'})
@@ -242,21 +259,21 @@ def add():
                     PANEL_DEFECT.insert({'Panel_ID':panel_id,'Defect_ID':defect_id,'by':'AI','Status':'true'})
                     info['gui_defects'][k].remove(v)
                 elif info['gui_defects'][k] and v not in info['gui_defects'][k]:
-                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'AI','time':info['ai_time']})
+                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'AI','time':info['create_time']})
                     PANEL_DEFECT.insert({'Panel_ID':panel_id,'Defect_ID':defect_id,'by':'AI','Status':'false'})
     if info['gui_defects']:
         for k in info['gui_defects'].keys():
             if info['gui_defects'][k]:
                 for v in info['gui_defects'][k]:
-                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'OP','time':info['gui_time']})
+                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'OP','time':info['create_time']})
                     PANEL_DEFECT.insert({'Panel_ID':panel_id,'Defect_ID':defect_id,'by':'OP','Status':'true'})
     logger.info('add panel')
-    
-    return 'OK',200
-@app.route('/barcode/find', methods=['GET','POST'])
+    return jsonify(1),200
+    #return 'OK',200
+@app.route('/barcde/find', methods=['GET','POST'])
 def find(): 
     #user = db.users 
-    collection = db.panel
+    coldict#lection = db.panel
     data = request.data
     Barcode = json.loads(data.decode('utf-8'))
     Barcode = Barcode["barcode"]
