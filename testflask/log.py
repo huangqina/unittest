@@ -93,14 +93,14 @@ if c.is_primary:
 @app.route('/', methods=['GET'])
 def show():
   #t = i['Defects'][0]['Defect']
-  return  '<p>ip:5000/add/panel</p><p>ip:5000/find/barcode     #post barcode</p><p>ip:5000/find/NG      #post time</p><p>ip:5000/find/OK       #post time</p><p>ip:5000/find/missrate     #post time</p><p>ip:5000/find/overkillrate     #post time</p><p>ip:5000/find/defect     #post time</p>'
+  return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_size": str, "cell_amount": int, "el_no": str, "create_time": float, "ai_result": int, "ai_defects": dict, "ai_time": float, "gui_result": int, "gui_defects": dict, "gui_time": float}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
 @app.route('/test',methods=['POST'])
 def test():
     user = db.user
     a = user.find({"type":0,"activate":1},projection={"_id":0})
     b = list(a)
     return jsonify(b)
-@app.route('/add/user',methods=['POST'])
+@app.route('/user/add',methods=['POST'])
 def add_user():
     user = db.user
     log = db.user_log
@@ -112,7 +112,7 @@ def add_user():
         return '200'
     except BaseException as e:
         return str(e),400
-@app.route('/del/user',methods=['POST'])
+@app.route('/user/del',methods=['POST'])
 def del_user():
     user = db.user
     log = db.user_log
@@ -150,11 +150,11 @@ def logout():
     I = user.find_one({"name" : info["user_name"],"activate" : 1})
     if  I:
         log.insert({'user_id' : I, 'time': info['time'],'action':"logout'{'%s'}'"%(info["user_name"])})
-        return '200'
+        return 'logout',200
     else:
-        return '400'
+        return 'error',400
 
-@app.route('/add/panel',methods=['POST'])
+@app.route('/panel/add',methods=['POST'])
 def add():
     PANEL = db.panel
     EL = db.el
@@ -252,13 +252,13 @@ def add():
     logger.info('add panel')
     
     return 'OK',200
-@app.route('/find/barcode', methods=['GET','POST'])
+@app.route('/barcode/find', methods=['GET','POST'])
 def find(): 
     #user = db.users 
     collection = db.panel
     data = request.data
     Barcode = json.loads(data.decode('utf-8'))
-    Barcode = Barcode["Barcode"]
+    Barcode = Barcode["barcode"]
     #Barcode = request.args['Barcode']
     I = list(db.panel.find({"Barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
     if I:
@@ -288,7 +288,7 @@ def find():
     return jsonify(k)
     # for i in k['Defects']:
           #  print(i['Defect'])
-@app.route('/find/OK', methods=['GET','POST']) 
+@app.route('/OK/find', methods=['GET','POST']) 
 def findOK(): 
     data = request.data
     time = json.loads(data.decode('utf-8'))
@@ -313,7 +313,7 @@ def findOK():
     #else:
    #     return 'False'
    # '''
-@app.route('/find/NG', methods=['GET','POST']) 
+@app.route('/NG/find', methods=['GET','POST']) 
 def findNG(): 
     data = request.data
     time = json.loads(data.decode('utf-8'))
@@ -341,7 +341,7 @@ def findNG():
     else:
         return 'False'
     '''
-@app.route('/find/missrate', methods=['GET','POST']) 
+@app.route('/missrate/find', methods=['GET','POST']) 
 def missrate(): 
     data = request.data
     time = json.loads(data.decode('utf-8'))
@@ -372,7 +372,7 @@ def missrate():
     return jsonify(k)
     #return jsonify(a[0]['count']/(a[1]['count']+a[0]['count']))
 
-@app.route('/find/overkillrate', methods=['GET','POST']) 
+@app.route('/overkillrate/find', methods=['GET','POST']) 
 def overkillrate(): 
    # start = int(request.args['start'])
    # end = int(request.args['end'])
@@ -404,7 +404,7 @@ def overkillrate():
     '''
     return jsonify(k)
     #return str(a[1]['count']/(a[1]['count']+a[0]['count']))
-@app.route('/find/defect', methods=['GET','POST']) 
+@app.route('/defect/find', methods=['GET','POST']) 
 def defecttime(): 
    # start = int(request.args['start'])
    # end = int(request.args['end'])
