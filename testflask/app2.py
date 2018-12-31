@@ -10,16 +10,17 @@ import json
 from flask_apscheduler import APScheduler
 import logging
 import sys
-
+import logging.handlers
 #logging.basicConfig(filename="./log",level = logging.INFO,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
  
 # 文件日志
-file_handler = logging.FileHandler("test.log")
+#file_handler = logging.FileHandler("test.log")
+file_handler = logging.handlers.TimedRotatingFileHandler("log/log", when='D', interval=1, backupCount=30)
 file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式
- 
+file_handler.suffix = "%Y-%m-%d_%H-%M.log"
 # 控制台日志
 console_handler = logging.StreamHandler(sys.stdout)
 console_handler.formatter = formatter  # 也可以直接给formatter赋值
@@ -94,7 +95,7 @@ if c.is_primary:
 def show():
   #t = i['Defects'][0]['Defect']
   return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_amount": int, "el_no": str, "display_mode": int, "module_no": int, "thresholds": dict, "create_time": float, "ai_result": int, "ai_defects": dict, "gui_result": int, "gui_defects": dict}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
-@app.route('/test',methods=['POST'])
+@app.route('/test',methods=['POST','GET'])
 def test():
     user = db.user
     a = user.find({"type":0,"activate":1},projection={"_id":0})
@@ -109,7 +110,7 @@ def add_user():
     try:
         user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":0})
         log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"add_user'{'%s'}'"%(info["user_name"])})
-        return '200'
+        return jsonify(1),200
     except BaseException as e:
         return str(e),400
 @app.route('/user/del',methods=['POST'])
@@ -125,7 +126,7 @@ def del_user():
             I["activate"] = 0
             I = user.update({"name" : info["user_name"],"pw" : info["user_pw"]},I)
             log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"DEL'{'%s'}'"%(info["user_name"])})
-            return '200'
+            return jsonify(1),200
     except BaseException as e:
         return str(e),400
 @app.route('/user/login',methods=['POST'])
@@ -139,7 +140,7 @@ def login():
     if  I:
         log.insert({'user_id' : I, 'time': info['time'],'action':"login'{'%s'}'"%(info["user_name"])})
         #return str(int(I["type"])),200
-        return str(int(I["type"])),200
+        return jsonify(int(I["type"])),200
     else:
         return 'error',400
 @app.route('/user/logout',methods=['POST'])
@@ -151,7 +152,7 @@ def logout():
     I = user.find_one({"name" : info["user_name"],"activate" : 1})
     if  I:
         log.insert({'user_id' : I, 'time': info['time'],'action':"logout'{'%s'}'"%(info["user_name"])})
-        return 'logout',200
+        return jsonify(1),200
     else:
         return 'error',400
 
@@ -273,7 +274,7 @@ def add():
 @app.route('/barcde/find', methods=['GET','POST'])
 def find(): 
     #user = db.users 
-    coldict#lection = db.panel
+    collection = db.panel
     data = request.data
     Barcode = json.loads(data.decode('utf-8'))
     Barcode = Barcode["barcode"]

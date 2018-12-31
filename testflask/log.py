@@ -93,7 +93,7 @@ if c.is_primary:
 @app.route('/', methods=['GET'])
 def show():
   #t = i['Defects'][0]['Defect']
-  return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "el_no": str, "display_mode": int, "module_no": int,"thresholds": dict,"cell_amount": int, "create_time": float, "ai_result": int, "ai_defects": dict, "ai_time": float, "gui_result": int, "gui_defects": dict, "gui_time": float}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
+  return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_size": str, "cell_amount": int, "el_no": str, "create_time": float, "ai_result": int, "ai_defects": dict, "ai_time": float, "gui_result": int, "gui_defects": dict, "gui_time": float}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
 @app.route('/test',methods=['POST'])
 def test():
     user = db.user
@@ -109,7 +109,7 @@ def add_user():
     try:
         user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":0})
         log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"add_user'{'%s'}'"%(info["user_name"])})
-        return '200'
+        return jsonify(1),200
     except BaseException as e:
         return str(e),400
 @app.route('/user/del',methods=['POST'])

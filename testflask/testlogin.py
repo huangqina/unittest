@@ -6,5 +6,6 @@ a = {"admin_name":"root","user_name":"huang","user_pw":"123456","time":1.1}
 a = {"admin_name":"root","user_name":"1","user_pw":"123456","admin_pw":"123456","time":1.1}
 b = json.dumps(a)
 
-r = requests.post("http://192.168.2.10:5000/user/login",b)
+#r = requests.post("http://192.168.2.10:5000/test",b)
+r = requests.post("http://192.168.2.31:5000/test",b)
 print(r.text)
