@@ -109,7 +109,8 @@ def add_user():
     info = json.loads(data.decode('utf-8'))
     try:
         user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":0})
-        log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"add_user'{'%s'}'"%(info["user_name"])})
+        log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"add_user{%s}"%(info["user_name"])})
+        logger.info("user_add{%s}"%(info["user_name"]))
         return jsonify(1),200
     except BaseException as e:
         return str(e),400
@@ -125,7 +126,8 @@ def del_user():
             I = user.find_one({"name" : info["user_name"],"pw" : info["user_pw"]})
             I["activate"] = 0
             I = user.update({"name" : info["user_name"],"pw" : info["user_pw"]},I)
-            log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"DEL'{'%s'}'"%(info["user_name"])})
+            log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"DEL{%s}"%(info["user_name"])})
+            logger.info("user_del{%s}"%(info["user_name"]))
             return jsonify(1),200
     except BaseException as e:
         return str(e),400
@@ -138,8 +140,9 @@ def login():
     I = user.find_one({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1})
     
     if  I:
-        log.insert({'user_id' : I, 'time': info['time'],'action':"login'{'%s'}'"%(info["user_name"])})
+        log.insert({'user_id' : I, 'time': info['time'],'action':"login{%s}"%(info["user_name"])})
         #return str(int(I["type"])),200
+        logger.info("login{%s}"%(info["user_name"]))
         return jsonify(int(I["type"])),200
     else:
         return 'error',400
@@ -151,7 +154,8 @@ def logout():
     info = json.loads(data.decode('utf-8'))
     I = user.find_one({"name" : info["user_name"],"activate" : 1})
     if  I:
-        log.insert({'user_id' : I, 'time': info['time'],'action':"logout'{'%s'}'"%(info["user_name"])})
+        log.insert({'user_id' : I, 'time': info['time'],'action':"logout{%s}"%(info["user_name"])})
+        logger.info("logout{%s}"%(info["user_name"]))
         return jsonify(1),200
     else:
         return 'error',400

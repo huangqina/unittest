@@ -1,0 +1,2 @@
+sudo apt-get install openssh-server
+sudo ssh -C -f -N -g -L 5001:192.168.2.129:5001 GangVM@192.168.2.129
