@@ -10,7 +10,9 @@ def connect2():
     while line:
         ip = list(line.strip().split(':'))
         count = 0
-        client = MongoClient(ip[0], int(ip[1]), serverSelectionTimeoutMS=5)
+        #client = MongoClient(ip[0], int(ip[1]), serverSelectionTimeoutMS=5)
+        #a="mongodb://root:123456@%s:%i}"%(ip[0],int(ip[1]))
+        client = MongoClient("mongodb://root:123456@%s:%i"%(ip[0],int(ip[1])), serverSelectionTimeoutMS=5)
         while True:
             try:
                 client.admin.command("ping")

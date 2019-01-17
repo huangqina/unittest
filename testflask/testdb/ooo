@@ -1,0 +1,5 @@
+#!/bin/bash
+
+./yrt&
+sleep 20
+./yrt

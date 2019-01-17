@@ -1,0 +1,3 @@
+
+db.createUser({user:'root',pwd:'123456',customData:{description:"root"},roles:[{'role':'root','db':'admin'}]})
+

@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  db:
+    image: mongo:3.6.9
+    volumes:
+     - ./data:/data/db
+    ports: 
+     - "27017:27017"
+    command:    mongod --config /data/db/mongod.yml
+
+  db2:
+    image: mongo:3.6.9
+
+    volumes:
+     - ./data2:/data/db
+    ports: 
+     - "27020:27017"
+    command:      mongod --config /data/db/mongod.yml
+
+  db3:
+    image: mongo:3.6.9
+
+    volumes:
+     - ./data3:/data/db
+    ports: 
+     - "27021:27017"
+    command: mongod --config /data/db/mongod.yml
+
+#python3 code/app.py
+#gunicorn interface:app -c gunicorn.conf.py

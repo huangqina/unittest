@@ -1,3 +1,25 @@
-2018-12-31 15:45:24,473 INFO    : login'{'1'}'
-2018-12-31 15:47:18,264 INFO    : logout{'1'}
-2018-12-31 15:48:03,677 INFO    : logout{1}
+2019-01-15 07:42:29,895 ERROR   : json file error  'barcode'
+2019-01-15 07:42:37,637 ERROR   : json file error  'barcode'
+2019-01-15 07:42:47,381 ERROR   : json file error  'barcode'
+2019-01-15 07:42:58,563 ERROR   : create_time should be float
+2019-01-15 07:43:12,970 ERROR   : json file error  'display_mode'
+2019-01-15 07:43:56,051 INFO    : add panel
+2019-01-15 17:26:48,584 INFO    : add panel
+2019-01-16 12:31:08,636 INFO    : add panel
+2019-01-16 13:02:14,500 INFO    : user_add{1}
+2019-01-16 13:02:36,261 INFO    : user_add{huang}
+2019-01-16 13:02:43,464 INFO    : user_add{esfsdf}
+2019-01-16 13:02:50,011 INFO    : user_add{esdrtgfsdf}
+2019-01-16 14:26:47,321 INFO    : el_no.1_config_change{root}
+2019-01-16 14:39:17,240 INFO    : el_no.1_config_change{root}
+2019-01-16 14:43:58,510 INFO    : el_no.1_config_change{root}
+2019-01-16 15:10:42,471 INFO    : el_no.1_config_change{root}
+2019-01-16 15:10:43,837 INFO    : el_no.1_config_change{root}
+2019-01-16 15:10:50,029 INFO    : el_no.2_config_change{root}
+2019-01-16 15:11:02,217 INFO    : el_no.1_config_change{root}
+2019-01-16 15:11:04,127 INFO    : el_no.1_config_change{root}
+2019-01-16 16:57:17,081 INFO    : el_no.3_config_change{root}
+2019-01-16 16:57:26,431 INFO    : el_no.3_config_change{root}
+2019-01-16 17:19:24,213 INFO    : password_change{huang}
+2019-01-16 17:27:15,510 INFO    : user_add{test}
+2019-01-16 17:27:38,510 INFO    : login{test}

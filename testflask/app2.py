@@ -80,6 +80,7 @@ scheduler.start()
 #app.config['MONGO_DBNAME'] = 'ttt'
 #mongo = PyMongo(app)
 #manager = Manager(app)
+#db.authenticate("root","123456") 
 if c.is_primary:
     db.user.ensure_index([("name",1)],unique=True)
     db.panel.create_index([("Barcode", 1)])

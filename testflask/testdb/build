@@ -1,0 +1,23 @@
+#!/bin/bash
+sudo chmod 777 -R data
+sudo rm -rf data
+sudo chmod 777 -R data2
+sudo rm -rf data2
+sudo chmod 777 -R data3
+sudo rm -rf data3
+mkdir data
+mkdir data2
+mkdir data3
+cd data
+cp ../mongod.yml ./
+cp ../try ./
+cp ../keyFile ./
+mkdir logs
+cd ../data2
+cp ../mongod.yml ./
+cp ../keyFile ./
+mkdir logs
+cd ../data3
+cp ../mongod.yml ./
+cp ../keyFile ./
+mkdir logs
