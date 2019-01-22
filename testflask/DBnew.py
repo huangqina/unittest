@@ -19,7 +19,7 @@ formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
 # 文件日志
 #file_handler = logging.FileHandler("test.log")
 file_handler = logging.handlers.TimedRotatingFileHandler("log/log", when='D', interval=1, backupCount=30)
-file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式
+file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式.
 file_handler.suffix = "%Y-%m-%d_%H-%M.log"
 # 控制台日志
 console_handler = logging.StreamHandler(sys.stdout)
@@ -97,6 +97,12 @@ if c.is_primary:
 def show():
   #t = i['Defects'][0]['Defect']
   return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_amount": int, "el_no": str, "display_mode": int, "module_no": int, "thresholds": dict, "create_time": float, "ai_result": int, "ai_defects": dict, "gui_result": int, "gui_defects": dict}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
+@app.route('/user/show',methods=['POST','GET'])
+def user_show():
+    user = db.user
+    a = user.find({"activate":1},projection={"_id":0,"activate":0,"pw":0})
+    b = list(a)
+    return jsonify(b)
 @app.route('/user/display',methods=['POST','GET'])
 def user_display():
     user = db.user
@@ -110,9 +116,11 @@ def add_user():
     data = request.data
     info = json.loads(data.decode('utf-8'))
     try:
-        user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":info["type"]})
-        log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"add_user{%s}"%(info["user_name"])})
-        logger.info("user_add{%s}"%(info["user_name"]))
+        AD = user.find_one({"name" : info["admin_name"],"activate" : 1})
+        if AD:
+            user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":info["type"]})
+            log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"%s_add_user_%s"%(info["admin_name"],info["user_name"])})
+            logger.info("user_add{%s}"%(info["user_name"]))
         return jsonify(1),200
     except BaseException as e:
         return str(e),400
@@ -128,8 +136,25 @@ def del_user():
             I = user.find_one({"name" : info["user_name"],"pw" : info["user_pw"]})
             I["activate"] = 0
             I = user.update({"name" : info["user_name"],"pw" : info["user_pw"]},I)
-            log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"DEL{%s}"%(info["user_name"])})
-            logger.info("user_del{%s}"%(info["user_name"]))
+            log.insert({'user_id' : AD['_id'],'user_name' : info["admin_name"], 'time': info['time'],'action':"%s_del_user_%s"%(info["admin_name"],info["user_name"])})
+            logger.info("user_del_%s"%(info["user_name"]))
+            return jsonify(1),200
+    except BaseException as e:
+        return str(e),400
+@app.route('/user/change',methods=['POST'])
+def user_change():
+    user = db.user
+    log = db.user_log
+    data = request.data
+    info = json.loads(data.decode('utf-8'))
+    try:
+        AD = user.find_one({"name" : info["admin_name"],"activate" : 1})
+        if AD:
+            I = user.find_one({"name" : info["user_name"],"activate" : 1})
+            for i in info["change"].keys():
+                I[i] = info["change"][i]
+            I = user.update({"name" : info["user_name"],"activate" : 1},I)
+            log.insert({'user_id' : AD['_id'],'user_name' : info["admin_name"], 'time': info['time'],'action':"%s_change_%s"%(info["admin_name"],info["user_name"])})
             return jsonify(1),200
     except BaseException as e:
         return str(e),400
@@ -145,7 +170,7 @@ def user_password_change():
             I = user.find_one({"name" : info["user_name"],"activate" : 1})
             I["pw"] = info["user_pw"]
             I = user.update({"name" : info["user_name"],"activate" : 1},I)
-            log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"password_change{%s}"%(info["user_name"])})
+            log.insert({'user_id' : AD['_id'],'user_name' : info["admin_name"], 'time': info['time'],'action':"%s_password_change{%s}"%(info["admin_name"],info["user_name"])})
             logger.info("password_change{%s}"%(info["user_name"]))
             return jsonify(1),200
     except BaseException as e:
@@ -159,10 +184,10 @@ def login():
     I = user.find_one({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1})
     
     if  I:
-        log.insert({'user_id' : I, 'time': info['time'],'action':"login{%s}"%(info["user_name"])})
+        log.insert({'user_id' : I['_id'], 'user_name' : info["user_name"], 'time': info['time'],'action':"login_%s"%(info["user_name"])})
         #return str(int(I["type"])),200
         logger.info("login{%s}"%(info["user_name"]))
-        return jsonify(int(I["type"])),200
+        return jsonify(I["type"]),200
     else:
         return 'error',400
 @app.route('/user/logout',methods=['POST'])
@@ -173,7 +198,7 @@ def logout():
     info = json.loads(data.decode('utf-8'))
     I = user.find_one({"name" : info["user_name"],"activate" : 1})
     if  I:
-        log.insert({'user_id' : I, 'time': info['time'],'action':"logout{%s}"%(info["user_name"])})
+        log.insert({'user_id' : I['_id'], 'user_name' : info["user_name"], 'time': info['time'],'action':"logout_%s"%(info["user_name"])})
         logger.info("logout{%s}"%(info["user_name"]))
         return jsonify(1),200
     else:
@@ -236,7 +261,7 @@ def el_config_check():
 #@app.route('/el/config/check',methods=['POST'])
 #def el_config_check():
 @app.route('/panel/add',methods=['POST'])
-def add():
+def panel_add():
     display_mode = db.display_mode
     #module_no = db.module_no
     thresholds = db.thresholds
@@ -351,7 +376,7 @@ def add():
     return jsonify(1),200
     #return 'OK',200
 @app.route('/barcde/find', methods=['GET','POST'])
-def find(): 
+def barcde_find(): 
     #user = db.users 
     collection = db.panel
     data = request.data

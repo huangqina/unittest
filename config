@@ -5,4 +5,11 @@ cfg={ _id:"rs", members:[ {_id:0,host:'10.42.10.21:27017',priority:3}, {_id:1,ho
 cfg={ _id:"rs", members:[ {_id:0,host:'10.42.87.192:27017',priority:2}, {_id:1,host:'10.42.189.33:27017',priority:1},{_id:2,host:'192.168.2.25:27019',priority:1}, {_id:3,host:'10.42.141.147:27016',arbiterOnly:true}] }
 
 
-cfg={ _id:"rs", members:[ {_id:0,host:'192.168.2.31:27017',priority:100}, {_id:1,host:'192.168.2.31:27018',priority:100},{_id:2,host:'192.168.2.10:27017',priority:100}, {_id:3,host:'192.168.2.31:27016',arbiterOnly:true},{_id:4,host:'192.168.2.10:27018',arbiterOnly:true}] }
+cfg={ _id:"rs", members:[ {_id:0,host:'192.168.2.31:27017',priority:100}, {_id:1,host:'192.168.2.31:27018',priority:90},{_id:2,host:'192.168.2.10:27017',priority:80}, {_id:3,host:'192.168.2.31:27016',arbiterOnly:true},{_id:4,host:'192.168.2.10:27018',arbiterOnly:true}] }
+
+
+docker exec -ti 2d2946dc6ddb /bin/bash
+
+ctrl + P + Q 
+
+db.auth("yc-pc","123456")
