@@ -32,3 +32,9 @@
 2019-01-22 13:03:22,345 INFO    : login{test}
 2019-01-22 13:40:25,941 INFO    : logout{test}
 2019-01-22 14:07:50,913 INFO    : logout{1}
+2019-01-22 15:03:56,768 ERROR   : 'NoneType' object does not support item assignment
+2019-01-22 15:03:57,497 ERROR   : 'NoneType' object does not support item assignment
+2019-01-22 15:09:19,987 ERROR   : E11000 duplicate key error collection: tttt.user index: name_1 dup key: { : "1" }
+2019-01-22 15:10:03,200 ERROR   : 'NoneType' object does not support item assignment
+2019-01-22 15:32:26,556 ERROR   : admin user:rt didn't exist
+2019-01-22 15:32:44,276 ERROR   : admin user:rt didn't exist

@@ -10,7 +10,7 @@ mkdir data2
 mkdir data3
 cd data
 cp ../mongod.yml ./
-cp ../try ./
+cp ../config ./
 cp ../keyFile ./
 mkdir logs
 cd ../data2

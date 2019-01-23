@@ -121,8 +121,12 @@ def add_user():
             user.insert({"name" : info["user_name"],"pw" : info["user_pw"],"activate" : 1,"type":info["type"]})
             log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"%s_add_user_%s"%(info["admin_name"],info["user_name"])})
             logger.info("user_add{%s}"%(info["user_name"]))
-        return jsonify(1),200
+            return jsonify(1),200
+        else:
+            logger.error("admin user:%s didn't exist"%(info["admin_name"]))
+            return "admin user didn't exist", 400
     except BaseException as e:
+        logger.error(str(e))
         return str(e),400
 @app.route('/user/del',methods=['POST'])
 def del_user():
@@ -139,7 +143,11 @@ def del_user():
             log.insert({'user_id' : AD['_id'],'user_name' : info["admin_name"], 'time': info['time'],'action':"%s_del_user_%s"%(info["admin_name"],info["user_name"])})
             logger.info("user_del_%s"%(info["user_name"]))
             return jsonify(1),200
+        else:
+            logger.error("admin user:%s didn't exist"%(info["admin_name"]))
+            return "admin user didn't exist", 400
     except BaseException as e:
+        logger.error(str(e))
         return str(e),400
 @app.route('/user/change',methods=['POST'])
 def user_change():
@@ -147,16 +155,23 @@ def user_change():
     log = db.user_log
     data = request.data
     info = json.loads(data.decode('utf-8'))
+    change_list = []
     try:
         AD = user.find_one({"name" : info["admin_name"],"activate" : 1})
         if AD:
             I = user.find_one({"name" : info["user_name"],"activate" : 1})
             for i in info["change"].keys():
                 I[i] = info["change"][i]
+                change_list.append(i)
+            changes = '_'.join(change_list) 
             I = user.update({"name" : info["user_name"],"activate" : 1},I)
-            log.insert({'user_id' : AD['_id'],'user_name' : info["admin_name"], 'time': info['time'],'action':"%s_change_%s"%(info["admin_name"],info["user_name"])})
+            log.insert({'user_id' : AD['_id'],'user_name' : info["admin_name"], 'time': info['time'],'action':"%s_change_user:%s_%s"%(info["admin_name"],info["user_name"],changes)})
             return jsonify(1),200
+        else:
+            logger.error("admin user:%s didn't exist"%(info["admin_name"]))
+            return "admin user didn't exist", 400
     except BaseException as e:
+        logger.error(str(e))
         return str(e),400
 @app.route('/user/password/change',methods=['POST'])
 def user_password_change():
@@ -186,10 +201,11 @@ def login():
     if  I:
         log.insert({'user_id' : I['_id'], 'user_name' : info["user_name"], 'time': info['time'],'action':"login_%s"%(info["user_name"])})
         #return str(int(I["type"])),200
-        logger.info("login{%s}"%(info["user_name"]))
+        logger.info("login_%s"%(info["user_name"]))
         return jsonify(I["type"]),200
     else:
-        return 'error',400
+        logger.error("user:%s didn't exist"%(info["user_name"]))
+        return "user didn't exist", 400
 @app.route('/user/logout',methods=['POST'])
 def logout():
     user = db.user
@@ -199,10 +215,11 @@ def logout():
     I = user.find_one({"name" : info["user_name"],"activate" : 1})
     if  I:
         log.insert({'user_id' : I['_id'], 'user_name' : info["user_name"], 'time': info['time'],'action':"logout_%s"%(info["user_name"])})
-        logger.info("logout{%s}"%(info["user_name"]))
+        logger.info("logout_%s"%(info["user_name"]))
         return jsonify(1),200
     else:
-        return 'error',400
+        logger.error("user:%s didn't exist"%(info["user_name"]))
+        return "user didn't exist", 400
 @app.route('/el/config/change',methods=['POST'])
 def el_config_change():
     el_config = db.el_config

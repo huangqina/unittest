@@ -1,9 +1,6 @@
 #!/bin/bash
 
-mongo <<-EOF
-     cfg={ _id:"rs", members:[ {_id:0,host:'192.168.2.10:27017',priority:100}, {_id:1,host:'192.168.2.10:27020',priority:90}, {_id:3,host:'192.168.2.10:27021',arbiterOnly:true}] }
-     rs.initiate(cfg)
-     use admin
-     db.createUser({user:'root',pwd:'123456',customData:{description:"root"},roles:[{'role':'root','db':'admin'}]})
-     exit
+docker exec -i testdb_db_1 /bin/bash <<-EOF
+      /data/db/config
+      exit
 EOF

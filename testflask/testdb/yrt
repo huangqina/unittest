@@ -1,6 +1,0 @@
-#!/bin/bash
-
-docker exec -i testdb_db_1 /bin/bash <<-EOF
-      /data/db/try
-      exit
-EOF
