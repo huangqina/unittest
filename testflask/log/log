@@ -1,40 +1,58 @@
-2019-01-22 11:02:59,319 INFO    : login{test}
-2019-01-22 11:10:03,413 INFO    : login{test}
-2019-01-22 11:10:23,954 INFO    : login{test}
-2019-01-22 12:52:06,820 INFO    : login{test}
-2019-01-22 12:52:09,883 INFO    : login{test}
-2019-01-22 12:52:12,166 INFO    : login{test}
-2019-01-22 12:52:14,753 INFO    : login{test}
-2019-01-22 12:52:16,042 INFO    : login{test}
-2019-01-22 12:52:16,763 INFO    : login{test}
-2019-01-22 12:52:17,492 INFO    : login{test}
-2019-01-22 12:52:18,127 INFO    : login{test}
-2019-01-22 12:52:18,523 INFO    : login{test}
-2019-01-22 12:52:18,808 INFO    : login{test}
-2019-01-22 12:52:19,070 INFO    : login{test}
-2019-01-22 12:52:19,406 INFO    : login{test}
-2019-01-22 12:52:19,696 INFO    : login{test}
-2019-01-22 12:52:19,961 INFO    : login{test}
-2019-01-22 12:52:20,193 INFO    : login{test}
-2019-01-22 12:52:20,457 INFO    : login{test}
-2019-01-22 12:52:20,650 INFO    : login{test}
-2019-01-22 12:52:20,910 INFO    : login{test}
-2019-01-22 12:52:21,168 INFO    : login{test}
-2019-01-22 12:52:21,433 INFO    : login{test}
-2019-01-22 12:52:21,587 INFO    : login{test}
-2019-01-22 12:52:21,870 INFO    : login{test}
-2019-01-22 12:52:22,093 INFO    : login{test}
-2019-01-22 12:52:22,353 INFO    : login{test}
-2019-01-22 12:52:22,580 INFO    : login{test}
-2019-01-22 12:52:23,100 INFO    : login{test}
-2019-01-22 12:52:23,749 INFO    : login{test}
-2019-01-22 13:03:20,621 INFO    : login{test}
-2019-01-22 13:03:22,345 INFO    : login{test}
-2019-01-22 13:40:25,941 INFO    : logout{test}
-2019-01-22 14:07:50,913 INFO    : logout{1}
-2019-01-22 15:03:56,768 ERROR   : 'NoneType' object does not support item assignment
-2019-01-22 15:03:57,497 ERROR   : 'NoneType' object does not support item assignment
-2019-01-22 15:09:19,987 ERROR   : E11000 duplicate key error collection: tttt.user index: name_1 dup key: { : "1" }
-2019-01-22 15:10:03,200 ERROR   : 'NoneType' object does not support item assignment
-2019-01-22 15:32:26,556 ERROR   : admin user:rt didn't exist
-2019-01-22 15:32:44,276 ERROR   : admin user:rt didn't exist
+2019-01-25 17:19:45,098 ERROR   : 'NoneType' object does not support item assignment
+2019-01-26 13:00:34,800 INFO    : login_root
+2019-01-26 13:02:03,775 INFO    : login_root
+2019-01-26 13:02:17,133 INFO    : login_root
+2019-01-26 13:02:18,058 INFO    : login_root
+2019-01-26 13:02:48,999 INFO    : login_root
+2019-01-26 13:03:01,912 INFO    : login_root
+2019-01-26 13:03:03,230 INFO    : login_root
+2019-01-26 13:03:27,262 INFO    : login_root
+2019-01-26 13:08:11,187 INFO    : login_root
+2019-01-26 13:09:03,704 INFO    : login_root
+2019-01-26 13:13:20,867 INFO    : login_root
+2019-01-26 13:13:34,061 INFO    : login_root
+2019-01-26 13:13:35,197 INFO    : login_root
+2019-01-26 13:16:13,118 INFO    : login_root
+2019-01-26 13:17:12,241 INFO    : login_root
+2019-01-26 13:17:15,028 INFO    : login_root
+2019-01-26 13:18:04,333 INFO    : login_root
+2019-01-26 13:18:15,214 INFO    : login_root
+2019-01-26 13:19:16,923 INFO    : login_root
+2019-01-26 13:19:20,948 INFO    : login_root
+2019-01-26 13:19:29,796 INFO    : login_root
+2019-01-26 13:19:45,360 INFO    : login_root
+2019-01-26 13:19:46,491 INFO    : login_root
+2019-01-26 13:20:07,623 INFO    : login_root
+2019-01-26 13:22:17,247 INFO    : login_root
+2019-01-26 13:23:46,545 INFO    : login_root
+2019-01-26 13:26:18,122 INFO    : login_user1
+2019-01-26 13:26:33,005 INFO    : login_user2
+2019-01-26 13:32:14,785 ERROR   : user:user2 didn't exist
+2019-01-26 13:32:42,766 INFO    : login_user2
+2019-01-26 13:34:27,672 INFO    : login_user2
+2019-01-26 13:38:21,668 INFO    : login_root
+2019-01-26 13:39:32,434 INFO    : login_root
+2019-01-26 13:39:45,643 INFO    : login_root
+2019-01-26 13:39:57,880 INFO    : login_user2
+2019-01-26 13:39:59,809 INFO    : login_user2
+2019-01-26 13:40:01,196 INFO    : login_user2
+2019-01-26 13:40:02,066 INFO    : login_user2
+2019-01-26 13:40:02,555 INFO    : login_user2
+2019-01-26 13:41:30,037 ERROR   : user:12 didn't exist
+2019-01-26 13:41:30,300 ERROR   : user:12 didn't exist
+2019-01-26 13:42:04,301 ERROR   : user:12 didn't exist
+2019-01-26 13:42:04,610 ERROR   : user:12 didn't exist
+2019-01-26 13:42:33,635 ERROR   : user:12 didn't exist
+2019-01-26 13:42:33,905 ERROR   : user:12 didn't exist
+2019-01-26 13:43:03,811 ERROR   : user:12 didn't exist
+2019-01-26 13:43:04,120 ERROR   : user:12 didn't exist
+2019-01-26 13:43:23,482 INFO    : login_root
+2019-01-26 13:44:23,156 ERROR   : user:12 didn't exist
+2019-01-26 13:44:23,465 ERROR   : user:12 didn't exist
+2019-01-26 13:48:23,077 INFO    : login_root
+2019-01-26 13:57:06,319 INFO    : login_root
+2019-01-26 13:58:59,755 INFO    : login_root
+2019-01-26 14:00:10,489 INFO    : login_root
+2019-01-26 14:02:26,601 INFO    : login_user2
+2019-01-26 14:10:19,500 INFO    : login_root
+2019-01-26 14:11:54,935 INFO    : login_root

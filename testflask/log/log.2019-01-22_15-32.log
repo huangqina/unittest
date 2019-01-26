@@ -1,0 +1,40 @@
+2019-01-22 11:02:59,319 INFO    : login{test}
+2019-01-22 11:10:03,413 INFO    : login{test}
+2019-01-22 11:10:23,954 INFO    : login{test}
+2019-01-22 12:52:06,820 INFO    : login{test}
+2019-01-22 12:52:09,883 INFO    : login{test}
+2019-01-22 12:52:12,166 INFO    : login{test}
+2019-01-22 12:52:14,753 INFO    : login{test}
+2019-01-22 12:52:16,042 INFO    : login{test}
+2019-01-22 12:52:16,763 INFO    : login{test}
+2019-01-22 12:52:17,492 INFO    : login{test}
+2019-01-22 12:52:18,127 INFO    : login{test}
+2019-01-22 12:52:18,523 INFO    : login{test}
+2019-01-22 12:52:18,808 INFO    : login{test}
+2019-01-22 12:52:19,070 INFO    : login{test}
+2019-01-22 12:52:19,406 INFO    : login{test}
+2019-01-22 12:52:19,696 INFO    : login{test}
+2019-01-22 12:52:19,961 INFO    : login{test}
+2019-01-22 12:52:20,193 INFO    : login{test}
+2019-01-22 12:52:20,457 INFO    : login{test}
+2019-01-22 12:52:20,650 INFO    : login{test}
+2019-01-22 12:52:20,910 INFO    : login{test}
+2019-01-22 12:52:21,168 INFO    : login{test}
+2019-01-22 12:52:21,433 INFO    : login{test}
+2019-01-22 12:52:21,587 INFO    : login{test}
+2019-01-22 12:52:21,870 INFO    : login{test}
+2019-01-22 12:52:22,093 INFO    : login{test}
+2019-01-22 12:52:22,353 INFO    : login{test}
+2019-01-22 12:52:22,580 INFO    : login{test}
+2019-01-22 12:52:23,100 INFO    : login{test}
+2019-01-22 12:52:23,749 INFO    : login{test}
+2019-01-22 13:03:20,621 INFO    : login{test}
+2019-01-22 13:03:22,345 INFO    : login{test}
+2019-01-22 13:40:25,941 INFO    : logout{test}
+2019-01-22 14:07:50,913 INFO    : logout{1}
+2019-01-22 15:03:56,768 ERROR   : 'NoneType' object does not support item assignment
+2019-01-22 15:03:57,497 ERROR   : 'NoneType' object does not support item assignment
+2019-01-22 15:09:19,987 ERROR   : E11000 duplicate key error collection: tttt.user index: name_1 dup key: { : "1" }
+2019-01-22 15:10:03,200 ERROR   : 'NoneType' object does not support item assignment
+2019-01-22 15:32:26,556 ERROR   : admin user:rt didn't exist
+2019-01-22 15:32:44,276 ERROR   : admin user:rt didn't exist
