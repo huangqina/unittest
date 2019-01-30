@@ -485,7 +485,7 @@ def panel_add():
        
         return str('json file error  '+str(e)),400
     try:
-        panel_id = PANEL.insert({'barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_amount': info['cell_amount'],'cell_shape':info['cell_shape'],'display_mode': info['display_mode'], 'module_no':info['module_no'],'el_no':info['el_no'],'create_time':info['create_time']})
+        panel_id = PANEL.insert({'barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_amount': info['cell_amount'],'cell_shape':info['cell_shape'],'display_mode': info['display_mode'],'el_no':info['el_no'],'create_time':info['create_time']})
     except BaseException as e:
         logger.error('barcode already exits')
         return 'barcode already exits',400
