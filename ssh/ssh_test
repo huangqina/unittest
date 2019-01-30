@@ -1,0 +1,64 @@
+A通过LB连接B
+
+在B上执行：
+
+     ssh -C -f -N -R listen_port:DST_Host:DST_port user@Remote_Host
+
+    命令参数解释：
+
+     -R  将远程主机(服务器)的某个端口转发到本地端指定机器的指定端口
+
+    -C  压缩数据传输
+
+    -f   后台认证用户/密码，通常和-N连用，不用登录到远程主机
+
+    listen_port:  远程主机S上的某个端口
+
+    DST_Host:  B的IP地址，一般是127.0.0.1
+
+    DST_port:  B 的端口号，一般是22
+
+    user:  服务器S的用户名
+
+    Remote_Host：服务器的IP地址或者域名
+在B电脑上执行：ssh -C -f -N -R 7001:127.0.0.1:22 user@Remote_Host
+在A执行：ssh LB@IP  连接LB
+   后执行ssh -p 7001 root@localhost 就可以操作B电脑了，要注意命令中root为B电脑的用户名，localhost表明与自己的端口7001建立连接，因为7001已经映射到B电脑的22号端口上，所以就相当于直接用A电脑连接了B电脑。
+
+免密码登陆
+
+ssh-keygen -t rsa 
+
+在相应的目录下查看生成的密钥文件，其中：id_rsa为私钥文件，id_rsa.pub为公钥文件
+
+本地机器执行命令如：ssh-copy-id -i ~/.ssh/id_rsa.pub username@IP， 将公钥文件传输的远程机器，并生效
+
+
+结合上述，实际使用中可能是如下的命令：
+
+ B电脑上执行：
+
+ssh -o StrictHostKeyChecking=no -o TCPKeepAlive=yes -o \
+ServerAliveInterval=300 -o ServerAliveCountMax=2 \
+-i 秘钥文件 -C -f -N -R 7001:127.0.0.1:22 user@Remote_Host
+
+建立监听。
+
+
+A电脑上执行：
+
+ssh -i 秘钥文件 user@Remote_Host
+
+连接服务器S。
+
+
+然后在S上执行：
+
+ssh -i 秘钥文件 -p 7001 root@localhost
+
+连接B电脑。
+
+
+sudo cryptsetup open /dev/sda2 pri
+
+nohup python ai.py &

@@ -82,8 +82,9 @@ scheduler.start()
 #manager = Manager(app)
 #db.authenticate("root","123456") 
 if c.is_primary:
-    db.user.ensure_index([("user_name",1)],unique=True)
+    db.user.ensure_index([("user_name",1),("activate",1)],unique=True)
     db.permission.ensure_index([("type",1)],unique=True)
+    db.gui_setting.ensure_index([("gui_no",1)],unique=True)
     db.panel.create_index([("Barcode", 1)])
     db.el_config.ensure_index([("el_no",1)],unique=True)
     db.panel.ensure_index([("Barcode",1),("create_time",1)],unique=True)
@@ -97,7 +98,8 @@ if c.is_primary:
 @app.route('/', methods=['GET'])
 def show():
   #t = i['Defects'][0]['Defect']
-  return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_amount": int, "el_no": str, "display_mode": int, "module_no": int, "thresholds": dict, "create_time": float, "ai_result": int, "ai_defects": dict, "gui_result": int, "gui_defects": dict}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
+  return '<p>Hello!</p>'
+  #return  '<p>ip:5000/user/add {"admin_name": str, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/del {"admin_name": str, "user_name": str, "admin_pw": str, "time": float}</p><p>ip:5000/user/login {"type": int, "user_name": str, "user_pw": str, "time": float}</p><p>ip:5000/user/logout {"user_name": str, "time": float}</p><p>ip:5000/panel/add {"barcode": str, "cell_type": str, "cell_amount": int, "el_no": str, "display_mode": int, "module_no": int, "thresholds": dict, "create_time": float, "ai_result": int, "ai_defects": dict, "gui_result": int, "gui_defects": dict}</p><p>ip:5000/barcode/find {"barcode": str}    #post barcode</p><p>ip:5000/NG/find   [float, float]  #post time</p><p>ip:5000/OK/find  [float, float]     #post time</p><p>ip:5000/missrate/find   [float, float] #post time</p><p>ip:5000/overkillrate/find   [float, float]  #post time</p><p>ip:5000/defect/find   [float, float]  #post time</p>'
 @app.route('/user/show',methods=['POST','GET'])
 def user_show():
     user = db.user
@@ -127,7 +129,7 @@ def add_user():
             return jsonify(1),200
         else:
             logger.error("admin user:%s didn't exist"%(info["admin_name"]))
-            return "admin user didn't exist", 400
+            return jsonify("admin user didn't exist"), 400
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
@@ -148,7 +150,7 @@ def del_user():
             return jsonify(1),200
         else:
             logger.error("admin user:%s didn't exist"%(info["admin_name"]))
-            return "admin user didn't exist", 400
+            return jsonify("admin user didn't exist"), 400
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
@@ -173,7 +175,7 @@ def user_modify():
             return jsonify(1),200
         else:
             logger.error("user:%s didn't exist"%(info["admin_name"]))
-            return "user didn't exist", 422
+            return jsonify("user didn't exist"), 422
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
@@ -209,7 +211,7 @@ def login_operator():
         return jsonify(I["type"]),200
     else:
         logger.error("user:%s didn't exist"%(info["user_name"]))
-        return "user didn't exist", 400
+        return jsonify("user didn't exist"), 400
 @app.route('/user/login/admin',methods=['POST','GET'])
 def login_admin():
     user = db.user
@@ -239,9 +241,9 @@ def login_admin():
             return jsonify(result), 200
         else:
             logger.error("user:%s didn't exist"%(info["user_name"]))
-            return "user didn't exist", 421
+            return jsonify("user didn't exist"), 421
     except BaseException:
-        return "error", 400
+        return jsonify("error"), 400
 @app.route('/user/logout',methods=['POST'])
 def logout():
     user = db.user
@@ -256,100 +258,106 @@ def logout():
     else:
         logger.error("user:%s didn't exist"%(info["user_name"]))
         return "user didn't exist", 400
-@app.route('/el/config/change',methods=['POST'])
+@app.route('/el/config/modify',methods=['POST'])
 def el_config_change():
     el_config = db.el_config
-    log = db.user_logs
+    user = db.user
+    log = db.user_log
     data = request.data
     change_list = []
     info = json.loads(data.decode('utf-8'))
     try:
         EL = el_config.find_one({"el_no" : info["el_no"]})
+        AD = user.find_one({"user_name" : info["admin_name"],"activate" : 1})
         if EL:
             for i in info["changed_items"].keys():
                 EL[i] = info["changed_items"][i]
                 change_list.append(i)
             changes = '_'.join(change_list) 
-            I = el_config.update({"el_no" : info["el_no"]},EL)
-            log.insert({'el_id' : I['_id'],'el_no' : info["el_no"], 'time': info['time'],'action':"%s_change_el_config:%s_%s"%(info["admin_name"],info["el_no"],changes)})
+            el_config.update({"el_no" : info["el_no"]},EL)
+            log.insert({'admin_id' : AD['_id'],'admin_name' : info["admin_name"],'el_id' : EL['_id'],'el_no' : info["el_no"], 'time': info['time'],'action':"%s_change_el_config:%s_%s"%(info["admin_name"],info["el_no"],changes)})
             return jsonify(1),200
         else:
             logger.error("el_no:%s didn't exist"%(info["admin_name"]))
-            return "el_no didn't exist", 422
+            return jsonify("el_no didn't exist"), 422
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
 @app.route('/gui/config/modify',methods=['POST'])
 def gui_config_modify():
     gui_setting = db.gui_setting
-    log = db.user_logs
+    user = db.user
+    log = db.user_log
     data = request.data
     change_list = []
     info = json.loads(data.decode('utf-8'))
     try:
         GUI = gui_setting.find_one({"gui_no" : info["gui_no"]})
+        AD = user.find_one({"user_name" : info["admin_name"],"activate" : 1})
         if GUI:
             for i in info["changed_items"].keys():
                 GUI[i] = info["changed_items"][i]
                 change_list.append(i)
             changes = '_'.join(change_list) 
-            I = gui_setting.update({"gui_no" : info["gui_no"]},GUI)
-            log.insert({'gui_id' : I['_id'],'gui_no' : info["gui_no"], 'time': info['time'],'action':"%s_change_el_config:%s_%s"%(info["admin_name"],info["gui_no"],changes)})
+            gui_setting.update({"gui_no" : info["gui_no"]},GUI)
+            log.insert({'admin_id' : AD['_id'],'admin_name' : info["admin_name"],'gui_id' : GUI['_id'],'gui_no' : info["gui_no"], 'time': info['time'],'action':"%s_change_gui_config:%s_%s"%(info["admin_name"],info["gui_no"],changes)})
             return jsonify(1),200
         else:
             logger.error("gui_no:%s didn't exist"%(info["admin_name"]))
-            return "gui_no didn't exist", 422
+            return jsonify("gui_no didn't exist"), 422
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
 @app.route('/permission/modify',methods=['POST'])
 def permission_modify():
     permission = db.permission
-    log = db.user_logs
+    user = db.user
+    log = db.user_log
     data = request.data
     change_list = []
     info = json.loads(data.decode('utf-8'))
     try:
         P = permission.find_one({"type" : info["type"]})
+        AD = user.find_one({"user_name" : info["admin_name"],"activate" : 1})
         if P:
             for i in info["changed_items"].keys():
                 P[i] = info["changed_items"][i]
                 change_list.append(i)
             changes = '_'.join(change_list) 
-            I = permission.update({"type" : info["type"]},P)
-            log.insert({'type_id' : I['_id'],'type' : info["type"], 'time': info['time'],'action':"%s_change_el_config:%s_%s"%(info["admin_name"],info["type"],changes)})
+            permission.update({"type" : info["type"]},P)
+            log.insert({'admin_id' : AD['_id'],'admin_name' : info["admin_name"],'type_id' : P['_id'],'type' : info["type"], 'time': info['time'],'action':"%s_change_permission_config:%s_%s"%(info["admin_name"],info["type"],changes)})
             return jsonify(1),200
         else:
             logger.error("type:%s didn't exist"%(info["admin_name"]))
-            return "type didn't exist", 422
+            return jsonify("type didn't exist"), 422
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
-#@app.route('/el/config/change',methods=['POST'])
-#def el_config_change():
-#    el_config = db.el_config
-#    log = db.user_log
-#    data = request.data
-#    dic = {}
-#    info = json.loads(data.decode('utf-8'))
-#    try:
-#        if info['thresholds']:
-#            for k in info['thresholds'].keys():
-#                dic[k] = info['thresholds'][k]
-#    except BaseException:
-#        pass 
-#    try:
-#        AD = el_config.find_one({"el_no" : info["el_no"]})
-#        if AD:
-#            el_config.update({"el_no" : info["el_no"]},{'el_no':info["el_no"],'cell_type':info["cell_type"],'cell_amount':info['cell_amount'],'display_mode':info['display_mode'],'module_no':info['module_no'],'thresholds':dic})       
-#        else:
-#            el_config.insert({'el_no':info["el_no"],'cell_type':info["cell_type"],'cell_amount':info['cell_amount'],'display_mode':info['display_mode'],'module_no':info['module_no'],'thresholds':dic})
+'''@app.route('/el/config/change',methods=['POST'])
+def el_config_change():
+    el_config = db.el_config
+    log = db.user_log
+    data = request.data
+    dic = {}
+    info = json.loads(data.decode('utf-8'))
+    try:
+        if info['thresholds']:
+            for k in info['thresholds'].keys():
+                dic[k] = info['thresholds'][k]
+    except BaseException:
+        pass 
+    try:
+        AD = el_config.find_one({"el_no" : info["el_no"]})
+        if AD:
+            el_config.update({"el_no" : info["el_no"]},{'el_no':info["el_no"],'cell_type':info["cell_type"],'cell_amount':info['cell_amount'],'display_mode':info['display_mode'],'module_no':info['module_no'],'thresholds':dic})       
+        else:
+            el_config.insert({'el_no':info["el_no"],'cell_type':info["cell_type"],'cell_amount':info['cell_amount'],'display_mode':info['display_mode'],'module_no':info['module_no'],'thresholds':dic})
                
-#        log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"el_%s_config_change{%s}"%(info["el_no"],info["admin_name"])})
-#        logger.info("el_%s_config_change{%s}"%(info["el_no"],info["admin_name"]))
-#        return jsonify(1),200
-#    except BaseException as e:
-#        return str(e),400
+        log.insert({'user_id' : info["admin_name"], 'time': info['time'],'action':"el_%s_config_change{%s}"%(info["el_no"],info["admin_name"])})
+        logger.info("el_%s_config_change{%s}"%(info["el_no"],info["admin_name"]))
+        return jsonify(1),200
+    except BaseException as e:
+        return str(e),400'''
 @app.route('/el/config/display',methods=['POST','GET'])
 def el_config_display():
     el_config = db.el_config
@@ -477,7 +485,7 @@ def panel_add():
        
         return str('json file error  '+str(e)),400
     try:
-        panel_id = PANEL.insert({'Barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_amount': info['cell_amount'],'cell_shape':info['cell_shape'],'display_mode': info['display_mode'], 'module_no':info['module_no'],'el_no':info['el_no'],'create_time':info['create_time']})
+        panel_id = PANEL.insert({'barcode' : info['barcode'], 'cell_type': info['cell_type'],'cell_amount': info['cell_amount'],'cell_shape':info['cell_shape'],'display_mode': info['display_mode'], 'module_no':info['module_no'],'el_no':info['el_no'],'create_time':info['create_time']})
     except BaseException as e:
         logger.error('barcode already exits')
         return 'barcode already exits',400
@@ -491,26 +499,26 @@ def panel_add():
             thresholds.insert(dic)
     except BaseException:
         pass
-    EL.insert({'EL_no': info['el_no']})
+    EL.insert({'el_no': info['el_no']})
     #panel = PANEL.find_one({'_id': panel_id })
-    PANEL_STATUS.insert({'Panel_ID':panel_id,'time':info['create_time'],'result':info['ai_result'],'by':'AI'})
-    PANEL_STATUS.insert({'Panel_ID':panel_id,'time':info['create_time'],'result':info['gui_result'],'by':'OP'})
+    PANEL_STATUS.insert({'panel_id':panel_id,'time':info['create_time'],'result':info['ai_result'],'by':'AI'})
+    PANEL_STATUS.insert({'panel_id':panel_id,'time':info['create_time'],'result':info['gui_result'],'by':'OP'})
     if info['ai_defects']:
         for k in info['ai_defects'].keys():
             for v in info['ai_defects'][k]:
                 if info['gui_defects'][k] and v in info['gui_defects'][k]:
-                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'AI','time':info['ai_time']})
-                    PANEL_DEFECT.insert({'Panel_ID':panel_id,'Defect_ID':defect_id,'by':'AI','Status':'true'})
+                    defect_id = DEFECT.insert({'type':k,'position':v,'by':'AI','time':info['ai_time']})
+                    PANEL_DEFECT.insert({'panel_id':panel_id,'defect_id':defect_id,'by':'AI','status':'true'})
                     info['gui_defects'][k].remove(v)
                 elif info['gui_defects'][k] and v not in info['gui_defects'][k]:
-                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'AI','time':info['create_time']})
-                    PANEL_DEFECT.insert({'Panel_ID':panel_id,'Defect_ID':defect_id,'by':'AI','Status':'false'})
+                    defect_id = DEFECT.insert({'type':k,'position':v,'by':'AI','time':info['create_time']})
+                    PANEL_DEFECT.insert({'panel_id':panel_id,'defect_id':defect_id,'by':'AI','status':'false'})
     if info['gui_defects']:
         for k in info['gui_defects'].keys():
             if info['gui_defects'][k]:
                 for v in info['gui_defects'][k]:
-                    defect_id = DEFECT.insert({'Type':k,'Position':v,'by':'OP','time':info['create_time']})
-                    PANEL_DEFECT.insert({'Panel_ID':panel_id,'Defect_ID':defect_id,'by':'OP','Status':'true'})
+                    defect_id = DEFECT.insert({'type':k,'position':v,'by':'OP','time':info['create_time']})
+                    PANEL_DEFECT.insert({'panel_id':panel_id,'defect_id':defect_id,'by':'OP','status':'true'})
     logger.info('add panel')
     return jsonify(1),200
     #return 'OK',200
@@ -522,7 +530,7 @@ def barcde_find():
     Barcode = json.loads(data.decode('utf-8'))
     Barcode = Barcode["barcode"]
     #Barcode = request.args['Barcode']
-    I = list(db.panel.find({"Barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
+    I = list(db.panel.find({"barcode" : Barcode}).limit(1).sort([("_id" , -1)]))
     if I:
         ID = I[0]['_id']
     else: 
@@ -538,11 +546,11 @@ def barcde_find():
     {'$project':{"_id":0}},
     {'$lookup': {'from':"panel_defect","pipeline":[
          
-         {'$match':{ "Panel_ID": ID }},
+         {'$match':{ "panel_id": ID }},
          
-         {'$lookup':{'from':"defect","localField":"Defect_ID",   "foreignField":"_id","as":"Defect"}
+         {'$lookup':{'from':"defect","localField":"defect_id",   "foreignField":"_id","as":"defect"}
          },{'$project':
-         {"_id":0,"Defect_ID":0,"Panel_ID":0}},{'$project':{"Defect":{"_id":0}}}],"as": "Defects"}}]))
+         {"_id":0,"defect_id":0,"panel_id":0}},{'$project':{"defect":{"_id":0}}}],"as": "defects"}}]))
    # a=str('ID:'+str(k[0]['ID'])+'  '+'Barcode:' + str(k[0]['Barcode'])+'  '+'type:'+str(k[0]['type'])+'  '+ 'size:'+ str(k[0]['size']) +'  '+'EL_no:'+ str(k[0]['EL_no']))
 
     #return str(a)+'\n'+str(k[0]['Defects'])
@@ -550,6 +558,17 @@ def barcde_find():
     return jsonify(k)
     # for i in k['Defects']:
           #  print(i['Defect'])
+@app.route('/panel/check_last', methods=['GET','POST'])
+def check_last():
+    panel = db.panel
+    data = request.data
+    info = json.loads(data.decode('utf-8'))
+    #Barcode = request.args['Barcode']
+    I = panel.find_one({"barcode" : info["barcode"],"create_time" : info["create_time"]}) 
+    if I:
+        return 1
+    else:
+        return 0
 @app.route('/OK/find', methods=['GET','POST']) 
 def findOK(): 
     data = request.data
@@ -615,11 +634,11 @@ def missrate():
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
-    {'$lookup':{'from':'panel_defect',"localField":"_id",   "foreignField":"Defect_ID","as":"Defect"}
-         },{'$project':{"Defect":
-         {"_id":0,"Defect_ID":0,"Panel_ID":0}}},{'$project':{"_id":0}},{
+    {'$lookup':{'from':'panel_defect',"localField":"_id",   "foreignField":"defect_id","as":"defect"}
+         },{'$project':{"defect":
+         {"_id":0,"defect_id":0,"panel_id":0}}},{'$project':{"_id":0}},{
     "$group":{
-        '_id' : "$Defect.by"
+        '_id' : "$defect.by"
             ,
         'count':{"$sum":1}}}]))
     #a=list(mongo.db.panel_defect.aggregate([
@@ -651,11 +670,11 @@ def overkillrate():
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
-    {'$lookup':{'from':'panel_defect',"localField":"_id",   "foreignField":"Defect_ID","as":"Defect"}
-         },{'$project':{"Defect":
-         {"_id":0,"Defect_ID":0,"Panel_ID":0}}},{'$project':{"_id":0}},{
+    {'$lookup':{'from':'panel_defect',"localField":"_id",   "foreignField":"defect_id","as":"defect"}
+         },{'$project':{"defect":
+         {"_id":0,"defect_id":0,"panel_id":0}}},{'$project':{"_id":0}},{
     "$group":{
-        '_id' : "$Defect.Status"
+        '_id' : "$defect.status"
             ,
         'count':{"$sum":1}}}]))
     '''
@@ -680,11 +699,11 @@ def defecttime():
     
     {"$match":{'time':{"$gt":start,"$lt":end}}},
     {'$project':{"_id":1}},
-    {'$lookup':{'from':'panel_defect',"localField":"_id",   "foreignField":"Defect_ID","as":"Defect"}
-         },{'$project':{"Defect":
-         {"_id":0,"Defect_ID":0,"Panel_ID":0}}},{'$project':{"_id":0}},{
+    {'$lookup':{'from':'panel_defect',"localField":"_id",   "foreignField":"defect_id","as":"defect"}
+         },{'$project':{"defect":
+         {"_id":0,"defect_ID":0,"panel_id":0}}},{'$project':{"_id":0}},{
     "$group":{
-        '_id' : "$Defect.Status"
+        '_id' : "$defect.status"
             ,
         'count':{"$sum":1}}}]))
     '''

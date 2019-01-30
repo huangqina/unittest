@@ -5,6 +5,10 @@ sudo chmod 777 -R data2
 sudo rm -rf data2
 sudo chmod 777 -R data3
 sudo rm -rf data3
+sudo chmod 600 ./keyFile
+sudo chmod 777 ./start
+sudo chmod 777 ./try
+sudo chmod 777 ./config
 mkdir data
 mkdir data2
 mkdir data3
