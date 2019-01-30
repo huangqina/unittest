@@ -133,7 +133,7 @@ def add_user():
     except BaseException as e:
         logger.error(str(e))
         return str(e),400
-@app.route('/user/del',methods=['POST'])
+@app.route('/user/delete',methods=['POST'])
 def del_user():
     user = db.user
     log = db.user_log
